@@ -10,12 +10,30 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="glass-container">
-        <h1 class="greeting">Good morninggg</h1>
-        <div class="ascii-art-container">
-            <pre id="flower-ascii"></pre>
+    <div id="page1" class="page active">
+        <div class="glass-container">
+            <h1 class="greeting">Good morninggg</h1>
+            <div class="ascii-art-container">
+                <pre id="flower-ascii"></pre>
+            </div>
+        </div>
+        <div class="next-arrow" id="nextBtn">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
         </div>
     </div>
+
+    <div id="page2" class="page">
+        <div class="glass-container">
+            <h1 class="greeting">Have a lovely day &lt;3</h1>
+            <div class="ascii-art-container">
+                <pre id="heart-ascii"></pre>
+            </div>
+        </div>
+    </div>
+
     <script src="script.js"></script>
 </body>
 </html>

@@ -47,12 +47,12 @@ body {
 
 .page.fade-out {
     display: flex;
-    animation: pageFadeOut 1s ease forwards;
+    animation: pageFadeOut 0.5s ease forwards;
 }
 
 .page.fade-in {
     display: flex;
-    animation: pageFadeIn 1s ease forwards;
+    animation: pageFadeIn 0.5s ease forwards;
 }
 
 @keyframes pageFadeOut {
@@ -123,12 +123,12 @@ body {
     align-items: center;
 }
 
-#flower-ascii, #heart-ascii {
+#sun-ascii, #heart-ascii {
     font-family: 'Fira Code', monospace;
     font-size: 1.2rem;
     line-height: 1.4;
-    color: #a7f3d0;
-    text-shadow: 0 0 10px rgba(167, 243, 208, 0.6);
+    color: #fde68a;
+    text-shadow: 0 0 10px rgba(253, 230, 138, 0.6);
     white-space: pre;
     text-align: left;
 }
@@ -192,7 +192,7 @@ body {
     .glass-container {
         padding: 2rem;
     }
-    #flower-ascii, #heart-ascii {
+    #sun-ascii, #heart-ascii {
         font-size: 0.75rem;
     }
     .next-arrow {

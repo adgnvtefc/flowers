@@ -1,10 +1,9 @@
-const frames = [
-    "         \n         \n         \n         \n         \n         \n         \n      .  \n    .....",
-    "         \n         \n         \n     _._ \n    /   \\\n    \\___/\n      |  \n      |  \n    .....",
-    "         \n         \n    .-.-.\n   /     \\\n   |  o  |\n   \\     /\n    '-.-'\n      |  \n    .....",
-    "         \n   _.-.-._\n  /       \\\n |  .---.  |\n |  | O |  |\n |  '---'  |\n  \\       /\n   '-._.-'\n      |  ",
-    "    .-~~~-.\n  .'       '.\n /   .-.-.   \\\n |  (  O  )  |\n \\   '-.-'   /\n  '.       .'\n    '-~~~-'\n      |  \n    ~\\|/~",
-    "   _.-~~~-._\n .'         '.\n |   _.-._   |\n |  (  O  )  |\n |   '-.-'   |\n '.         .'\n   '-.___.-'\n      |  \n    ~\\|/~"
+// Blooming sun — three frames cycled to make it open and close.
+// Art by jgs, via https://asciiart.website/art/7548 (signature removed).
+const sunFrames = [
+    "        _ _          \n     .-( : )-.       \n    (   \\'/   )      \n   ( `'.;;;.'` )     \n  ( :-=;;;;;=-: )    \n   (  .';;;'.  )     \n    (`  /.\\  `)      \n     '-(_:_)-'       ",
+    "        _   _        \n     .-( '.' )-.     \n    (   \\ : /   )    \n   ( `'-.;;;.-'` )   \n  ( :-==;;;;;==-: )  \n   (  .-';;;'-.  )   \n    (`  / : \\  `)    \n     '-(_.'._)-'     ",
+    "        __   __      \n     .-(  '.'  )-.   \n    (   \\  |  /   )  \n   ( `'-.;;;;;.-'` ) \n  ( :-==;;;;;;;==-: )\n   (  .-';;;;;'-.  ) \n    (`  /  |  \\  `)  \n     '-(__.'.__)-'   "
 ];
 
 const heartFrames = [
@@ -14,14 +13,11 @@ const heartFrames = [
     "                 \n _..._   _..._   \n.'    '\"'    '.  \n|             |  \n \\           /   \n  '.       .'    \n    '-. .-'      \n      \\ /        \n       v         "
 ];
 
-const maxFrame = frames.length - 1;
+const maxSunFrame = sunFrames.length - 1;
 const maxHeartFrame = heartFrames.length - 1;
 
-let flowers = [
-    { frame: 0, direction: 1, delay: 0 },
-    { frame: 0, direction: 1, delay: 4 },
-    { frame: 0, direction: 1, delay: 8 }
-];
+// Single sun that ping-pongs through the frames so it appears to bloom.
+let sun = { frame: 0, direction: 1, delay: 0 };
 
 let hearts = [
     { frame: 0, direction: 1, delay: 0 },
@@ -29,8 +25,25 @@ let hearts = [
     { frame: 0, direction: 1, delay: 6 }
 ];
 
-const flowerAsciiElement = document.getElementById('flower-ascii');
+const sunAsciiElement = document.getElementById('sun-ascii');
 const heartAsciiElement = document.getElementById('heart-ascii');
+
+function updateSun() {
+    if (sun.delay > 0) {
+        sun.delay--;
+        return;
+    }
+    sun.frame += sun.direction;
+    if (sun.frame >= maxSunFrame) {
+        sun.frame = maxSunFrame;
+        sun.direction = -1;
+        sun.delay = 6; // pause fully bloomed
+    } else if (sun.frame <= 0) {
+        sun.frame = 0;
+        sun.direction = 1;
+        sun.delay = 4; // pause closed
+    }
+}
 
 function updateEntities(entities, maxFrames, delays) {
     entities.forEach(e => {
@@ -70,8 +83,8 @@ let currentPage = 0;
 
 function animate() {
     if (currentPage === 0) {
-        renderAscii(flowers, frames, flowerAsciiElement, 16);
-        updateEntities(flowers, maxFrame, { max: 12, min: 8 });
+        sunAsciiElement.textContent = sunFrames[sun.frame];
+        updateSun();
     } else if (currentPage === 1) {
         renderAscii(hearts, heartFrames, heartAsciiElement, 17);
         updateEntities(hearts, maxHeartFrame, { max: 8, min: 4 });
@@ -85,20 +98,22 @@ const arrows = document.querySelectorAll('.next-arrow');
 
 arrows.forEach(arrow => {
     arrow.addEventListener('click', () => {
-        const current = pages[currentPage];
         const nextIndex = currentPage + 1;
         if (nextIndex >= pages.length) return;
 
+        const current = pages[currentPage];
         const next = pages[nextIndex];
 
-        current.classList.remove('active');
+        // Clear both state classes so the page actually fades out even if it
+        // was previously faded in (fade-in must not linger and override fade-out).
+        current.classList.remove('active', 'fade-in');
         current.classList.add('fade-out');
 
         setTimeout(() => {
             current.classList.remove('fade-out');
             currentPage = nextIndex;
-            next.classList.add('fade-in');
-        }, 250);
+            next.classList.add('active', 'fade-in');
+        }, 500);
     });
 });
 

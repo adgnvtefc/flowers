@@ -1,17 +1,17 @@
 const frames = [
-"         \n         \n         \n         \n         \n         \n         \n      .  \n    .....",
-"         \n         \n         \n     _._ \n    /   \\\n    \\___/\n      |  \n      |  \n    .....",
-"         \n         \n    .-.-.\n   /     \\\n   |  o  |\n   \\     /\n    '-.-'\n      |  \n    .....",
-"         \n   _.-.-._\n  /       \\\n |  .---.  |\n |  | O |  |\n |  '---'  |\n  \\       /\n   '-._.-'\n      |  ",
-"    .-~~~-.\n  .'       '.\n /   .-.-.   \\\n |  (  O  )  |\n \\   '-.-'   /\n  '.       .'\n    '-~~~-'\n      |  \n    ~\\|/~",
-"   _.-~~~-._\n .'         '.\n |   _.-._   |\n |  (  O  )  |\n |   '-.-'   |\n '.         .'\n   '-.___.-'\n      |  \n    ~\\|/~"
+    "         \n         \n         \n         \n         \n         \n         \n      .  \n    .....",
+    "         \n         \n         \n     _._ \n    /   \\\n    \\___/\n      |  \n      |  \n    .....",
+    "         \n         \n    .-.-.\n   /     \\\n   |  o  |\n   \\     /\n    '-.-'\n      |  \n    .....",
+    "         \n   _.-.-._\n  /       \\\n |  .---.  |\n |  | O |  |\n |  '---'  |\n  \\       /\n   '-._.-'\n      |  ",
+    "    .-~~~-.\n  .'       '.\n /   .-.-.   \\\n |  (  O  )  |\n \\   '-.-'   /\n  '.       .'\n    '-~~~-'\n      |  \n    ~\\|/~",
+    "   _.-~~~-._\n .'         '.\n |   _.-._   |\n |  (  O  )  |\n |   '-.-'   |\n '.         .'\n   '-.___.-'\n      |  \n    ~\\|/~"
 ];
 
 const heartFrames = [
-"                 \n                 \n                 \n                 \n                 \n                 \n                 \n      . .        \n       v         ",
-"                 \n                 \n                 \n                 \n    .-. .-.      \n    \\     /      \n     \\   /       \n      \\ /        \n       v         ",
-"                 \n                 \n  _.-.   .-._    \n.'           '.  \n|             |  \n \\           /   \n  '.       .'    \n    '-._.-'      \n       v         ",
-"                 \n _..._   _..._   \n.'    '\"'    '.  \n|             |  \n \\           /   \n  '.       .'    \n    '-. .-'      \n      \\ /        \n       v         "
+    "                 \n                 \n                 \n                 \n                 \n                 \n                 \n      . .        \n       v         ",
+    "                 \n                 \n                 \n                 \n    .-. .-.      \n    \\     /      \n     \\   /       \n      \\ /        \n       v         ",
+    "                 \n                 \n  _.-.   .-._    \n.'           '.  \n|             |  \n \\           /   \n  '.       .'    \n    '-._.-'      \n       v         ",
+    "                 \n _..._   _..._   \n.'    '\"'    '.  \n|             |  \n \\           /   \n  '.       .'    \n    '-. .-'      \n      \\ /        \n       v         "
 ];
 
 const maxFrame = frames.length - 1;
@@ -52,7 +52,7 @@ function updateEntities(entities, maxFrames, delays) {
 function renderAscii(entities, framesArray, element, padLen) {
     let combined = [];
     const numLines = 9; // all frames have exactly 9 lines
-    
+
     for (let i = 0; i < numLines; i++) {
         let row = '';
         entities.forEach((e, index) => {
@@ -62,36 +62,44 @@ function renderAscii(entities, framesArray, element, padLen) {
         });
         combined.push(row);
     }
-    
+
     element.textContent = combined.join('\n');
 }
 
-let isPage2 = false;
+let currentPage = 0;
 
 function animate() {
-    if (!isPage2) {
+    if (currentPage === 0) {
         renderAscii(flowers, frames, flowerAsciiElement, 16);
         updateEntities(flowers, maxFrame, { max: 12, min: 8 });
-    } else {
+    } else if (currentPage === 1) {
         renderAscii(hearts, heartFrames, heartAsciiElement, 17);
         updateEntities(hearts, maxHeartFrame, { max: 8, min: 4 });
     }
-    setTimeout(animate, 200); // 200ms per frame
+    setTimeout(animate, 200);
 }
 
-// Page transition
-const nextBtn = document.getElementById('nextBtn');
-const page1 = document.getElementById('page1');
-const page2 = document.getElementById('page2');
+// Generic multi-page navigation
+const pages = document.querySelectorAll('.page');
+const arrows = document.querySelectorAll('.next-arrow');
 
-nextBtn.addEventListener('click', () => {
-    page1.classList.remove('active');
-    page1.classList.add('fade-out');
-    setTimeout(() => {
-        page1.classList.remove('fade-out');
-        isPage2 = true;
-        page2.classList.add('fade-in');
-    }, 1000);
+arrows.forEach(arrow => {
+    arrow.addEventListener('click', () => {
+        const current = pages[currentPage];
+        const nextIndex = currentPage + 1;
+        if (nextIndex >= pages.length) return;
+
+        const next = pages[nextIndex];
+
+        current.classList.remove('active');
+        current.classList.add('fade-out');
+
+        setTimeout(() => {
+            current.classList.remove('fade-out');
+            currentPage = nextIndex;
+            next.classList.add('fade-in');
+        }, 250);
+    });
 });
 
 // Start animation loop

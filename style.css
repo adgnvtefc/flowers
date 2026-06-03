@@ -1,0 +1,103 @@
+:root {
+    --bg-color-1: #0f172a;
+    --bg-color-2: #312e81;
+    --bg-color-3: #4c1d95;
+    --bg-color-4: #831843;
+    --text-primary: #f8fafc;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Outfit', sans-serif;
+    background: linear-gradient(45deg, var(--bg-color-1), var(--bg-color-2), var(--bg-color-3), var(--bg-color-4));
+    background-size: 400% 400%;
+    animation: gradientBG 15s ease infinite;
+    color: var(--text-primary);
+    overflow: hidden;
+}
+
+@keyframes gradientBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.glass-container {
+    background: rgba(255, 255, 255, 0.05);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 24px;
+    padding: 3rem 4rem;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    max-width: 90vw;
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeUp 1.5s ease forwards;
+}
+
+@keyframes fadeUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.greeting {
+    font-size: 4rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    background: linear-gradient(135deg, #fbcfe8, #f472b6, #fb7185);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: 0 4px 12px rgba(244, 114, 182, 0.2);
+    text-align: center;
+    margin-bottom: 0.5rem;
+}
+
+.ascii-art-container {
+    background: rgba(0, 0, 0, 0.25);
+    padding: 2rem;
+    border-radius: 16px;
+    box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#flower-ascii {
+    font-family: 'Fira Code', monospace;
+    font-size: 1.2rem;
+    line-height: 1.4;
+    color: #a7f3d0;
+    text-shadow: 0 0 10px rgba(167, 243, 208, 0.6);
+    white-space: pre;
+    text-align: left;
+}
+
+@media (max-width: 768px) {
+    .greeting {
+        font-size: 2.5rem;
+    }
+    .glass-container {
+        padding: 2rem;
+    }
+    #flower-ascii {
+        font-size: 0.75rem;
+    }
+}

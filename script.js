@@ -86,10 +86,12 @@ const page2 = document.getElementById('page2');
 
 nextBtn.addEventListener('click', () => {
     page1.classList.remove('active');
+    page1.classList.add('fade-out');
     setTimeout(() => {
+        page1.classList.remove('fade-out');
         isPage2 = true;
-        page2.classList.add('active');
-    }, 1000); // Wait for fade out
+        page2.classList.add('fade-in');
+    }, 1000);
 });
 
 // Start animation loop

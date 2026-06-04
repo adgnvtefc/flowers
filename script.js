@@ -16,67 +16,29 @@ const heartFrames = [
 const maxSunFrame = sunFrames.length - 1;
 const maxHeartFrame = heartFrames.length - 1;
 
-// Single sun that ping-pongs through the frames so it appears to bloom.
+// Single sun and heart that ping-pong through their frames so they appear to bloom.
 let sun = { frame: 0, direction: 1, delay: 0 };
-
-let hearts = [
-    { frame: 0, direction: 1, delay: 0 },
-    { frame: 0, direction: 1, delay: 3 },
-    { frame: 0, direction: 1, delay: 6 }
-];
+let heart = { frame: 0, direction: 1, delay: 0 };
 
 const sunAsciiElement = document.getElementById('sun-ascii');
 const heartAsciiElement = document.getElementById('heart-ascii');
 
-function updateSun() {
-    if (sun.delay > 0) {
-        sun.delay--;
+// Advance one frame, pausing briefly at the fully-open and fully-closed ends.
+function tick(e, maxFrame, pauseOpen, pauseClosed) {
+    if (e.delay > 0) {
+        e.delay--;
         return;
     }
-    sun.frame += sun.direction;
-    if (sun.frame >= maxSunFrame) {
-        sun.frame = maxSunFrame;
-        sun.direction = -1;
-        sun.delay = 6; // pause fully bloomed
-    } else if (sun.frame <= 0) {
-        sun.frame = 0;
-        sun.direction = 1;
-        sun.delay = 4; // pause closed
+    e.frame += e.direction;
+    if (e.frame >= maxFrame) {
+        e.frame = maxFrame;
+        e.direction = -1;
+        e.delay = pauseOpen;
+    } else if (e.frame <= 0) {
+        e.frame = 0;
+        e.direction = 1;
+        e.delay = pauseClosed;
     }
-}
-
-function updateEntities(entities, maxFrames, delays) {
-    entities.forEach(e => {
-        if (e.delay > 0) {
-            e.delay--;
-        } else {
-            e.frame += e.direction;
-            if (e.frame === maxFrames) {
-                e.direction = -1;
-                e.delay = delays.max; // pause at max
-            } else if (e.frame === 0) {
-                e.direction = 1;
-                e.delay = delays.min; // pause at min
-            }
-        }
-    });
-}
-
-function renderAscii(entities, framesArray, element, padLen) {
-    let combined = [];
-    const numLines = 9; // all frames have exactly 9 lines
-
-    for (let i = 0; i < numLines; i++) {
-        let row = '';
-        entities.forEach((e, index) => {
-            const lines = framesArray[e.frame].split('\n');
-            let line = lines[i] || '';
-            row += line.padEnd(padLen, ' ') + (index < 2 ? '   ' : '');
-        });
-        combined.push(row);
-    }
-
-    element.textContent = combined.join('\n');
 }
 
 let currentPage = 0;
@@ -84,10 +46,10 @@ let currentPage = 0;
 function animate() {
     if (currentPage === 0) {
         sunAsciiElement.textContent = sunFrames[sun.frame];
-        updateSun();
+        tick(sun, maxSunFrame, 6, 4);
     } else if (currentPage === 1) {
-        renderAscii(hearts, heartFrames, heartAsciiElement, 17);
-        updateEntities(hearts, maxHeartFrame, { max: 8, min: 4 });
+        heartAsciiElement.textContent = heartFrames[heart.frame];
+        tick(heart, maxHeartFrame, 8, 4);
     }
     setTimeout(animate, 200);
 }

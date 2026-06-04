@@ -14,6 +14,7 @@
 
 body {
     min-height: 100vh;
+    min-height: 100dvh;
     font-family: 'Outfit', sans-serif;
     background: linear-gradient(45deg, var(--bg-color-1), var(--bg-color-2), var(--bg-color-3), var(--bg-color-4));
     background-size: 400% 400%;
@@ -35,7 +36,8 @@ body {
     top: 0;
     left: 0;
     width: 100%;
-    height: 100%;
+    height: 100vh;
+    height: 100dvh;
     display: none;
     justify-content: center;
     align-items: center;
@@ -186,11 +188,22 @@ body {
 }
 
 @media (max-width: 768px) {
+    /* Leave room at the bottom so the centered card never sits under the arrow. */
+    .page {
+        align-items: center;
+        padding-bottom: 6rem;
+    }
     .greeting {
         font-size: 2.5rem;
     }
     .glass-container {
-        padding: 2rem;
+        padding: 2rem 1.5rem;
+        max-width: 92vw;
+        gap: 1.5rem;
+        /* Tall content (e.g. page 3) scrolls inside the card instead of
+           overflowing the viewport and pushing the arrow off-screen. */
+        max-height: calc(100dvh - 8rem);
+        overflow-y: auto;
     }
     #sun-ascii, #heart-ascii {
         font-size: 0.75rem;

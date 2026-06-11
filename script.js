@@ -96,9 +96,9 @@ document.getElementById('randomizeBtn').addEventListener('click', randomizeFlowe
 // Generic multi-page navigation
 const pages = document.querySelectorAll('.page');
 
-function goToNextPage() {
-    const nextIndex = currentPage + 1;
-    if (nextIndex >= pages.length) return;
+// Fade to any page by index (some moves aren't linear, e.g. page 1 <-> page 5).
+function goToPage(nextIndex) {
+    if (nextIndex < 0 || nextIndex >= pages.length || nextIndex === currentPage) return;
 
     const current = pages[currentPage];
     const next = pages[nextIndex];
@@ -116,8 +116,20 @@ function goToNextPage() {
     }, 500);
 }
 
+function goToNextPage() {
+    goToPage(currentPage + 1);
+}
+
+function indexOfPage(id) {
+    return [...pages].findIndex(p => p.id === id);
+}
+
 document.querySelectorAll('.next-arrow').forEach(arrow => arrow.addEventListener('click', goToNextPage));
 document.getElementById('moreBtn').addEventListener('click', goToNextPage);
+
+// The "not a good morning?" detour off page 1, and its way back home.
+document.getElementById('badMorningBtn').addEventListener('click', () => goToPage(indexOfPage('page5')));
+document.getElementById('goodMorningBtn').addEventListener('click', () => goToPage(indexOfPage('page1')));
 
 // Start animation loop
 animate();

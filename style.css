@@ -276,11 +276,7 @@ body {
 }
 
 .randomize-btn {
-    position: absolute;
-    bottom: 2.5rem;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 10;
+    flex-shrink: 0;
     font-family: 'Outfit', sans-serif;
     font-size: 1.05rem;
     font-weight: 600;
@@ -297,21 +293,23 @@ body {
 
 .randomize-btn:hover {
     background: rgba(255, 255, 255, 0.18);
-    transform: translateX(-50%) scale(1.05);
+    transform: scale(1.05);
 }
 
 .randomize-btn:active {
-    transform: translateX(-50%) scale(0.97);
+    transform: scale(0.97);
 }
 
-/* Page 4: reserve room at the bottom for the pinned button, and let a long
-   caption scroll inside the card rather than overlapping the button. */
-#page4 {
-    padding-bottom: 7rem;
-}
-
+/* Page 4: keep the button just below the card on every screen size. Cap the
+   card height and let only the photo + caption scroll, so the button stays
+   visible (and attached) instead of being pushed off-screen. */
 #page4 .glass-container {
-    max-height: calc(100dvh - 9rem);
+    max-height: calc(100dvh - 4rem);
+    overflow: hidden;
+}
+
+#page4 .flower-card {
+    min-height: 0;
     overflow-y: auto;
 }
 

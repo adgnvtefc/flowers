@@ -35,6 +35,14 @@
                 <polyline points="19 12 12 19 5 12"></polyline>
             </svg>
         </div>
+        <div class="left-arrow" id="memoriesBtn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="19" y1="12" x2="5" y2="12"></line>
+                <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+            <span class="left-arrow-label">memories?</span>
+        </div>
     </div>
 
     <div id="page2" class="page">
@@ -96,6 +104,22 @@
                 <polyline points="5 12 12 5 19 12"></polyline>
             </svg>
             <span class="up-arrow-label">feeling better?? &lt;3</span>
+        </div>
+    </div>
+
+    <div id="page6" class="page">
+        <div class="glass-container">
+            <h1 class="greeting">take a walk down memory lane?</h1>
+            <div class="memory-card" id="memoryCard">
+                <h2 class="memory-header" id="memoryHeader"></h2>
+                <img class="memory-photo" id="memoryImg" src="" alt="A memory">
+                <div class="memory-text">
+                    <p class="memory-field"><span class="memory-label">translation:</span> <span
+                            id="memoryTranslation"></span></p>
+                    <p class="memory-field"><span class="memory-label">notes</span> <span id="memoryNotes"></span></p>
+                </div>
+            </div>
+            <button class="randomize-btn" id="memoryNextBtn">next &rarr;</button>
         </div>
     </div>
 

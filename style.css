@@ -199,6 +199,10 @@ body {
     position: absolute;
     bottom: 2.5rem;
     left: 50%;
+    /* Centering must live in the base rule, not only in the bounce keyframes —
+       otherwise the arrow loses its -50% offset (and goes off-center) whenever
+       the animation's transform isn't applied, e.g. after the page is re-shown. */
+    transform: translate(-50%, 0);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -244,6 +248,7 @@ body {
     position: absolute;
     bottom: 2.5rem;
     left: 50%;
+    transform: translate(-50%, 0);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -281,6 +286,66 @@ body {
     }
     60% {
         transform: translate(-50%, -5px);
+    }
+}
+
+/* "memories?" hint on the left edge of page 1 */
+.left-arrow {
+    position: absolute;
+    left: 2.5rem;
+    top: 50%;
+    /* Centering offset lives in the base rule, not only in the bounce keyframes. */
+    transform: translate(0, -50%);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.4rem;
+    color: var(--text-primary);
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+    animation: bounceLeft 2s infinite;
+    z-index: 10;
+}
+
+.left-arrow-label {
+    font-size: 1rem;
+    font-weight: 300;
+    letter-spacing: 0.02em;
+    opacity: 0.85;
+}
+
+.left-arrow svg {
+    width: 1.75rem;
+    height: 1.75rem;
+    display: block;
+}
+
+.left-arrow:hover {
+    opacity: 0.7;
+}
+
+@keyframes bounceLeft {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translate(0, -50%);
+    }
+    40% {
+        transform: translate(-10px, -50%);
+    }
+    60% {
+        transform: translate(-5px, -50%);
+    }
+}
+
+/* Mobile variant: no vertical centering offset (arrow sits in the top-left corner). */
+@keyframes bounceLeftFlat {
+    0%, 20%, 50%, 80%, 100% {
+        transform: translateX(0);
+    }
+    40% {
+        transform: translateX(-10px);
+    }
+    60% {
+        transform: translateX(-5px);
     }
 }
 
@@ -378,6 +443,71 @@ body {
     overflow-y: auto;
 }
 
+/* Memory lane (page 6) */
+.memory-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+    max-width: 420px;
+    width: 100%;
+}
+
+.memory-header {
+    font-size: 1.6rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    background: linear-gradient(135deg, #fbcfe8, #f472b6, #fb7185);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-align: center;
+}
+
+.memory-photo {
+    width: 100%;
+    max-width: 320px;
+    max-height: 38vh;
+    height: auto;
+    object-fit: contain;
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.55);
+}
+
+.memory-text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 100%;
+}
+
+.memory-field {
+    font-size: 1.05rem;
+    font-weight: 300;
+    line-height: 1.5;
+    color: rgba(248, 250, 252, 0.92);
+    text-align: left;
+    word-break: break-word;
+}
+
+.memory-label {
+    font-weight: 600;
+    color: #fbcfe8;
+    margin-right: 0.35rem;
+}
+
+/* Same pattern as page 4: cap the card, scroll the contents, keep the button visible. */
+#page6 .glass-container {
+    max-height: calc(100dvh - 4rem);
+    overflow: hidden;
+}
+
+#page6 .memory-card {
+    min-height: 0;
+    overflow-y: auto;
+}
+
 @media (max-width: 768px) {
     /* Leave room at the bottom so the centered card never sits under the arrow. */
     .page {
@@ -418,5 +548,15 @@ body {
     .down-arrow,
     .up-arrow {
         bottom: 1.5rem;
+    }
+    /* Tuck "memories?" into the top-left so it clears the centered card. */
+    .left-arrow {
+        top: 1.5rem;
+        left: 1.5rem;
+        transform: none;
+        animation: bounceLeftFlat 2s infinite;
+    }
+    .memory-photo {
+        max-height: 34vh;
     }
 }

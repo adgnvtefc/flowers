@@ -93,6 +93,75 @@ function randomizeFlower() {
 
 document.getElementById('randomizeBtn').addEventListener('click', randomizeFlower);
 
+// Memory lane (page 6) — photos shown in order, advanced with the "next" button.
+// translation/notes are intentionally blank; fill them in per entry below.
+const memories = [
+    { src: 'memories/day1.jpeg', header: 'Day 1', translation: 'An inch of time, an inch of gold', notes: 'the very first hehe' },
+    { src: 'memories/day2.jpeg', header: 'Day 2', translation: 'An inch of gold can hardly buy back a bit of time with you', notes: 'for you' },
+    { src: 'memories/day3.jpeg', header: 'Day 3', translation: 'Day by day, year by year', notes: 'Tree tunnel! I still say this line hehe.' },
+    { src: 'memories/day4.jpeg', header: 'Day 4', translation: 'My home forever welcomes you', notes: 'Our home.' },
+    { src: 'memories/day5pt1.jpeg', header: 'Day 5, pt 1', translation: 'Some days are hard', notes: 'omggg our first multi-part snap!!' },
+    { src: 'memories/day5pt2.jpeg', header: 'Day 5, pt 2', translation: 'i love you forever', notes: 'and eternity <3' },
+    { src: 'memories/day6.jpeg', header: 'Day 6', translation: 'I hope you are loved by this world', notes: '(you are)' },
+    { src: 'memories/day7.jpeg', header: 'Day 7', translation: 'I hope that in fifty years, you are still next to me, sitting with you in the rocking chair enjoying the warmth of the setting sun', notes: 'you know this song by now! and also my first multi color sun hehe' },
+    { src: 'memories/day8.jpeg', header: 'Day 8', translation: 'I miss youu', notes: 'the first time i drew this kitty style!' },
+    { src: 'memories/day9.jpeg', header: 'Day 9', translation: 'Isnt this what we call forever?', notes: 'i want to grow old with you' },
+    { src: 'memories/day10.jpeg', header: 'Day 10', translation: 'Im still looking for what it means to love', notes: 'and i still am... thank you for your patience' },
+    { src: 'memories/day11pt1.jpeg', header: 'Day 11, pt 1', translation: 'a star, a dream', notes: 'very many comingg' },
+    { src: 'memories/day11pt2.jpeg', header: 'Day 11, pt 2', translation: 'twinking twinkle little star, you are my star', notes: 'autocomplete keeps trying to make me write gibberish. booooo. these are all handwritten ofc' },
+    { src: 'memories/day11pt3.jpeg', header: 'Day 11, pt 3', translation: 'Here, I caught a star for you. make a wish. i love you', notes: 'forever my star. i remember taking a while to set up the lighting for this hehe' },
+    { src: 'memories/day11pt4.jpeg', header: 'Day 11, pt 4', translation: 'love you till the edge of the world', notes: 'pic inspired by traditional chinsee fairy tale' },
+    { src: 'memories/day12pt1.jpeg', header: 'Day 12, pt 1', translation: 'what im waitinf for isnt the snow', notes: 'hehe another multi parter' },
+    { src: 'memories/day12pt2.jpeg', header: 'Day 12, pt 2', translation: 'but the winter with you', notes: 'and we diddd have a winter together... and sm more to comeee' },
+    { src: 'memories/day13pt1.jpeg', header: 'Day 13, pt 1', translation: 'what im waiting for isnt the moon', notes: 'a continuation of yesterdays lyrics' },
+    { src: 'memories/day13pt2.jpeg', header: 'Day 13, pt 2', translation: 'but my meeting with you', notes: 'the moon is often used as a symbol of longing. i miss you.' },
+    { src: 'memories/day14pt1.jpeg', header: 'Day 14, pt 1', translation: 'im waiting for the skies to be filled with fireworks', notes: 'inspired by fourth of july' },
+    { src: 'memories/day14pt2.jpeg', header: 'Day 14, pt 2', translation: 'i can always lean on your left shoulder', notes: 'or in most of our cases, your right hehe' },
+    { src: 'memories/day14pt3.jpeg', header: 'Day 14, pt 3', translation: 'what im looking for isnt sorry, but forever', notes: 'you are not a burden. i love you forever.' },
+    { src: 'memories/day15.jpeg', header: 'Day 15', translation: 'the little parts of life are beautiful', notes: 'a compilation of the little things ive figured out how to draw' },
+    { src: 'memories/day16.jpeg', header: 'Day 16', translation: 'the world is so big, where do you want to go?', notes: 'i know, everywhere, and we will, together. (also, this drawing was before you told me about changing brush size hehe)' },
+    { src: 'memories/day17.jpeg', header: 'Day 17', translation: 'lets find tomorrow together', notes: 'opening a protal to uuu' },
+    { src: 'memories/day18.jpeg', header: 'Day 18', translation: 'in a moment there are a million possibilities', notes: 'i remember drawing this while editing my paper on the seattle rooftop' },
+    { src: 'memories/day19pt1.jpeg', header: 'Day 19, pt 1', translation: 'love who i love', notes: 'YOU' },
+    { src: 'memories/day19pt2.jpeg', header: 'Day 19, pt 2', translation: 'no regrets, no complaints', notes: 'NEVER' },
+    { src: 'memories/day20pt1.jpeg', header: 'Day 20, pt 1', translation: 'a sprig of haw, standing proudly in the snow', notes: 'continuation of yesterdays, you should stand proud, because you are AMAZING' },
+    { src: 'memories/day20pt2.jpeg', header: 'Day 20, pt 2', translation: 'only blooming for one', notes: 'i bloom for you' },
+    { src: 'memories/day21.jpeg', header: 'Day 21', translation: 'thank you', notes: 'for everything' },
+    { src: 'memories/day22.jpeg', header: 'Day 22', translation: 'to the edges of the sky and corners of the sea', notes: 'the world is our oyster' },
+    { src: 'memories/day23.jpeg', header: 'Day 23', translation: 'that day, you and me, at the edges of the mountains, singing yesteryears song, those memories, are enough, for me to miss you every day', notes: 'my first mountainsss' },
+    { src: 'memories/day24.jpeg', header: 'Day 24', translation: 'even if you go to the edges of the world, i will find you', notes: 'you are not getting rid of me mwa hahaha' },
+    { src: 'memories/day25.jpeg', header: 'Day 25', translation: 'missing you', notes: 'this is the first day my parents were here and we took a hike' },
+    { src: 'memories/day26.jpeg', header: 'Day 26', translation: 'the future', notes: 'inspired by our drive to olympic' },
+    { src: 'memories/day27pt1.jpeg', header: 'Day 27, pt 1', translation: 'i hope that we can walk with each other until our hairs turn white', notes: 'forever and ever' },
+    { src: 'memories/day27pt2.jpeg', header: 'Day 27, pt 2', translation: 'the love that perseverses no matter will never change', notes: 'i love you' },
+    { src: 'memories/day28.jpeg', header: 'Day 28', translation: 'all my life, i love you, a million, a hundred million, infinity', notes: 'i have always loved you, in case you couldnt tell hehe' },
+    { src: 'memories/day29-32.jpeg', header: 'Day 29 - 32', translation: 'SEATTLE', notes: 'RAHHHH SO MUCH FUN I LOVE YOU' },
+    { src: 'memories/day33.jpeg', header: 'Day 33', translation: 'giving you the courage to face tomorrow', notes: 'THE MARSHMALLOW CA CAWWWW (more coming soooon)' }
+];
+
+const memoryCard = document.getElementById('memoryCard');
+const memoryHeader = document.getElementById('memoryHeader');
+const memoryImg = document.getElementById('memoryImg');
+const memoryTranslation = document.getElementById('memoryTranslation');
+const memoryNotes = document.getElementById('memoryNotes');
+let memoryIndex = -1;
+
+function showMemory(i) {
+    memoryIndex = ((i % memories.length) + memories.length) % memories.length; // wrap around
+    const m = memories[memoryIndex];
+    memoryHeader.textContent = m.header;
+    memoryImg.src = m.src;
+    memoryTranslation.textContent = m.translation;
+    memoryNotes.textContent = m.notes;
+
+    // Replay the gentle fade-in for each new memory.
+    memoryCard.classList.remove('fade-in-combo');
+    void memoryCard.offsetWidth;
+    memoryCard.classList.add('fade-in-combo');
+}
+
+document.getElementById('memoryNextBtn').addEventListener('click', () => showMemory(memoryIndex + 1));
+
 // Generic multi-page navigation
 const pages = document.querySelectorAll('.page');
 
@@ -104,6 +173,7 @@ function goToPage(nextIndex) {
     currentPage = nextIndex;
     pages[currentPage].classList.add('active');
     if (pages[currentPage].id === 'page4' && lastFlower === -1) randomizeFlower(); // first flower on arrival
+    if (pages[currentPage].id === 'page6' && memoryIndex === -1) showMemory(0); // first memory on arrival
 }
 
 function goToNextPage() {
@@ -120,6 +190,9 @@ document.getElementById('moreBtn').addEventListener('click', goToNextPage);
 // The "not a good morning?" detour off page 1, and its way back home.
 document.getElementById('badMorningBtn').addEventListener('click', () => goToPage(indexOfPage('page5')));
 document.getElementById('goodMorningBtn').addEventListener('click', () => goToPage(indexOfPage('page1')));
+
+// The "memories?" detour off page 1.
+document.getElementById('memoriesBtn').addEventListener('click', () => goToPage(indexOfPage('page6')));
 
 // Start animation loop
 animate();

@@ -100,20 +100,9 @@ const pages = document.querySelectorAll('.page');
 function goToPage(nextIndex) {
     if (nextIndex < 0 || nextIndex >= pages.length || nextIndex === currentPage) return;
 
-    const current = pages[currentPage];
-    const next = pages[nextIndex];
 
-    // Clear both state classes so the page actually fades out even if it
-    // was previously faded in (fade-in must not linger and override fade-out).
-    current.classList.remove('active', 'fade-in');
-    current.classList.add('fade-out');
-
-    setTimeout(() => {
-        current.classList.remove('fade-out');
-        currentPage = nextIndex;
-        next.classList.add('active', 'fade-in');
-        if (next.id === 'page4' && lastFlower === -1) randomizeFlower(); // first flower on arrival
-    }, 500);
+    currentPage = nextIndex;
+    if (next.id === 'page4' && lastFlower === -1) randomizeFlower(); // first flower on arrival
 }
 
 function goToNextPage() {

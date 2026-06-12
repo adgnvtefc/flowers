@@ -80,12 +80,19 @@ body {
     align-items: center;
     gap: 2rem;
     max-width: 90vw;
-    opacity: 0;
-    transform: translateY(20px);
-    animation: fadeUp 1.5s ease forwards;
+    /* Resting state is visible. fadeUp is only an entrance flourish — we must
+       NOT depend on an animation's forwards-fill to keep the card visible, or
+       it disappears when a page is hidden and shown again (e.g. page 1 <-> 5). */
+    opacity: 1;
+    transform: translateY(0);
+    animation: fadeUp 1.5s ease;
 }
 
 @keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
     to {
         opacity: 1;
         transform: translateY(0);

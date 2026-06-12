@@ -100,9 +100,10 @@ const pages = document.querySelectorAll('.page');
 function goToPage(nextIndex) {
     if (nextIndex < 0 || nextIndex >= pages.length || nextIndex === currentPage) return;
 
-
+    pages[currentPage].classList.remove('active');
     currentPage = nextIndex;
-    if (next.id === 'page4' && lastFlower === -1) randomizeFlower(); // first flower on arrival
+    pages[currentPage].classList.add('active');
+    if (pages[currentPage].id === 'page4' && lastFlower === -1) randomizeFlower(); // first flower on arrival
 }
 
 function goToNextPage() {

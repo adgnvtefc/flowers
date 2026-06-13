@@ -430,6 +430,31 @@ body {
     transform: scale(0.97);
 }
 
+/* Small "i wanna see the new ones!!" jump button at the top of page 6 */
+.jump-new-btn {
+    flex-shrink: 0;
+    align-self: center;
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #fb7185;
+    background: rgba(251, 113, 133, 0.12);
+    border: 1px solid rgba(251, 113, 133, 0.35);
+    border-radius: 999px;
+    padding: 0.45rem 1rem;
+    cursor: pointer;
+    transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.jump-new-btn:hover {
+    background: rgba(251, 113, 133, 0.22);
+    transform: scale(1.05);
+}
+
+.jump-new-btn:active {
+    transform: scale(0.97);
+}
+
 /* Page 4: keep the button just below the card on every screen size. Cap the
    card height and let only the photo + caption scroll, so the button stays
    visible (and attached) instead of being pushed off-screen. */

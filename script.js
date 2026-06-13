@@ -136,8 +136,18 @@ const memories = [
     { src: 'memories/day27pt2.jpeg', header: 'Day 27, pt 2', translation: 'the love that perseverses no matter will never change', notes: 'i love you' },
     { src: 'memories/day28.jpeg', header: 'Day 28', translation: 'all my life, i love you, a million, a hundred million, infinity', notes: 'i have always loved you, in case you couldnt tell hehe' },
     { src: 'memories/day29-32.jpeg', header: 'Day 29 - 32', translation: 'SEATTLE', notes: 'RAHHHH SO MUCH FUN I LOVE YOU' },
-    { src: 'memories/day33.jpeg', header: 'Day 33', translation: 'giving you the courage to face tomorrow', notes: 'THE MARSHMALLOW CA CAWWWW (more coming soooon)' }
+    { src: 'memories/day33.jpeg', header: 'Day 33', translation: 'giving you the courage to face tomorrow', notes: 'THE MARSHMALLOW CA CAWWWW' },
+    { src: 'memories/day34.jpeg', header: 'Day 34', translation: 'I bear witness to you', notes: 'you are loved, you are valued, i see what you are doing and it is soooo amazing' },
+    { src: 'memories/day35.jpeg', header: 'Day 35', translation: 'lets fly into the starry sky, spend a lifetime with you', notes: 'inspired by the clouds we saw in seattle hehe' },
+    { src: 'memories/day36.jpeg', header: 'Day 36', translation: 'Everything is wind, except my love for you', notes: 'this was the night we were watching kpop demon hunters and were so rudely interrupted by the horrific many-legged bug' },
+    { src: 'memories/day37.jpeg', header: 'Day 37', translation: 'my best friend', notes: 'a lot more than that now, but forever my best friend as well. this was the first night i remember you falling asleep on call, and the day my parents left pittsburgh' },
+    { src: 'memories/day38.jpeg', header: 'Day 38', translation: 'iloveyouiloveyouiloveyou', notes: 'our happy plants :D i attended cmu orientation the next day' },
+    { src: 'memories/day39.jpeg', header: 'Day 39', translation: 'you are this special to me', notes: 'saw this flower in olympic. i dont think i captured it that well, but ta-da!! we planned labor day on this day hehe' },
+    { src: 'memories/day40.jpeg', header: 'Day 40', translation: 'for a lifetime', notes: 'i promise. (more coming soooon)' }
 ];
+
+// Where "i wanna see the new ones!!" jumps to — change this to the newest batch's photo.
+const NEW_MEMORIES_SRC = 'memories/day34.jpeg';
 
 const memoryCard = document.getElementById('memoryCard');
 const memoryHeader = document.getElementById('memoryHeader');
@@ -161,6 +171,11 @@ function showMemory(i) {
 }
 
 document.getElementById('memoryNextBtn').addEventListener('click', () => showMemory(memoryIndex + 1));
+
+document.getElementById('jumpNewBtn').addEventListener('click', () => {
+    const i = memories.findIndex(m => m.src === NEW_MEMORIES_SRC);
+    if (i !== -1) showMemory(i);
+});
 
 // Generic multi-page navigation
 const pages = document.querySelectorAll('.page');

@@ -522,6 +522,78 @@ body {
     margin-right: 0.35rem;
 }
 
+/* Clickable note that opens an auxiliary screenshot */
+.aux-link {
+    color: #fb7185;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+    cursor: pointer;
+}
+
+.aux-link:hover {
+    color: #f472b6;
+}
+
+/* Screenshot popup */
+.aux-modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    background: rgba(2, 6, 23, 0.8);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+}
+
+.aux-modal.open {
+    display: flex;
+}
+
+.aux-modal-content {
+    position: relative;
+    max-width: min(680px, 92vw);
+    max-height: 88vh;
+}
+
+.aux-modal-img {
+    display: block;
+    max-width: 100%;
+    max-height: 88vh;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.7);
+}
+
+.aux-modal-close {
+    position: absolute;
+    top: -1rem;
+    right: -1rem;
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    background: rgba(2, 6, 23, 0.9);
+    color: var(--text-primary);
+    font-size: 1.4rem;
+    line-height: 1;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.aux-modal-close:hover {
+    background: rgba(244, 114, 182, 0.25);
+    transform: scale(1.1);
+}
+
 /* Same pattern as page 4: cap the card, scroll the contents, keep the button visible. */
 #page6 .glass-container {
     max-height: calc(100dvh - 4rem);

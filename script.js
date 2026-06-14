@@ -143,11 +143,17 @@ const memories = [
     { src: 'memories/day37.jpeg', header: 'Day 37', translation: 'my best friend', notes: 'a lot more than that now, but forever my best friend as well. this was the first night i remember you falling asleep on call, and the day my parents left pittsburgh' },
     { src: 'memories/day38.jpeg', header: 'Day 38', translation: 'iloveyouiloveyouiloveyou', notes: 'our happy plants :D i attended cmu orientation the next day' },
     { src: 'memories/day39.jpeg', header: 'Day 39', translation: 'you are this special to me', notes: 'saw this flower in olympic. i dont think i captured it that well, but ta-da!! we planned labor day on this day hehe' },
-    { src: 'memories/day40.jpeg', header: 'Day 40', translation: 'for a lifetime', notes: 'i promise. (more coming soooon)' }
+    { src: 'memories/day40.jpeg', header: 'Day 40', translation: 'for a lifetime', notes: 'i promise.' },
+    { src: 'memories/day41.jpeg', header: 'Day 41', translation: 'im sorry', notes: 'this was the day we got the porter robinson tickets, and im not sure what i was apologizing for. i think i might have been overly clingy and triggered a whole cascade of sad. its quite an uncreative way to apologize, im sorry. ill do better. but PORTER WOBINSON' },
+    { src: 'memories/day42.jpeg', header: 'Day 42', translation: 'when I see you', notes: 'pure love oozing fr0m my veins hehe' },
+    { src: 'memories/day43.jpeg', header: 'Day 43', translation: 'beautiful days always have you', notes: 'and that has never changed', aux: { src: 'memories/auxiliary1.jpeg', text: 'btw, this is the calendar day for this legendary screenshot. i was in a thai resto when you texted me this i remember hehe. i forgot if it was you or me that did the thing.' } },
+    { src: 'memories/day44pt1.jpeg', header: 'Day 44, pt 1', translation: 'to cross mountains of knives and sea of flames', notes: 'a common chinese expression. quite a dramatic peoples we have here. this was the night where i went out with msaii people for the first (and also the last) time' },
+    { src: 'memories/day44pt2.jpeg', header: 'Day 44, pt 2', translation: 'still will spend a lifetime with you', notes: 'no matter what. fun fact, while im typing this, the autocomplete feature in this code editor keeps trying to autocomplete my code. it works great sometimes when i am coding. i am not coding, so mostly it just spews bullshit. but when i was typing this, the autocomplete suggested \'hehe\'. i guess i did hehe a lot in here. hehe.' },
+    { src: 'memories/day45.jpeg', header: 'Day 45', translation: 'lets see the ocean together (stupid autocomplete said: the purest love)', notes: 'we are seeing the ocean together!!! our first time since october 2024 i believe. i love you so much. but this autocomplete is actually hilarious. it says: [begin autocomplete segment] yours. this was the day we went thrift shopping and i bought a bunch of sweaters. then we went to target and i bought even more sweaters. i dont need that many sweaters. but i bought them. hehe. more coming soooon. [end autocompleted segment] wow. if i really sound like that, i am so sorry. but the one part it did get right... more coming soooon!' }
 ];
 
 // Where "i wanna see the new ones!!" jumps to — change this to the newest batch's photo.
-const NEW_MEMORIES_SRC = 'memories/day34.jpeg';
+const NEW_MEMORIES_SRC = 'memories/day41.jpeg';
 
 const memoryCard = document.getElementById('memoryCard');
 const memoryHeader = document.getElementById('memoryHeader');
@@ -164,6 +170,20 @@ function showMemory(i) {
     memoryTranslation.textContent = m.translation;
     memoryNotes.textContent = m.notes;
 
+    // Optional clickable note that pops open an auxiliary screenshot.
+    if (m.aux) {
+        const link = document.createElement('a');
+        link.className = 'aux-link';
+        link.textContent = m.aux.text;
+        link.href = '#';
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            openAuxPopup(m.aux.src);
+        });
+        if (m.notes) memoryNotes.append(' ');
+        memoryNotes.append(link);
+    }
+
     // Replay the gentle fade-in for each new memory.
     memoryCard.classList.remove('fade-in-combo');
     void memoryCard.offsetWidth;
@@ -175,6 +195,27 @@ document.getElementById('memoryNextBtn').addEventListener('click', () => showMem
 document.getElementById('jumpNewBtn').addEventListener('click', () => {
     const i = memories.findIndex(m => m.src === NEW_MEMORIES_SRC);
     if (i !== -1) showMemory(i);
+});
+
+// Auxiliary screenshot popup
+const auxModal = document.getElementById('auxModal');
+const auxModalImg = document.getElementById('auxModalImg');
+
+function openAuxPopup(src) {
+    auxModalImg.src = src;
+    auxModal.classList.add('open');
+}
+
+function closeAuxPopup() {
+    auxModal.classList.remove('open');
+}
+
+document.getElementById('auxModalClose').addEventListener('click', closeAuxPopup);
+auxModal.addEventListener('click', (e) => {
+    if (e.target === auxModal) closeAuxPopup(); // click backdrop to dismiss
+});
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeAuxPopup();
 });
 
 // Generic multi-page navigation

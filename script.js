@@ -214,8 +214,25 @@ document.getElementById('auxModalClose').addEventListener('click', closeAuxPopup
 auxModal.addEventListener('click', (e) => {
     if (e.target === auxModal) closeAuxPopup(); // click backdrop to dismiss
 });
+
+// "you should know,," text popup
+const knowModal = document.getElementById('knowModal');
+
+function closeKnowModal() {
+    knowModal.classList.remove('open');
+}
+
+document.getElementById('youShouldKnowBtn').addEventListener('click', () => knowModal.classList.add('open'));
+document.getElementById('knowModalClose').addEventListener('click', closeKnowModal);
+knowModal.addEventListener('click', (e) => {
+    if (e.target === knowModal) closeKnowModal(); // click backdrop to dismiss
+});
+
 document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') closeAuxPopup();
+    if (e.key === 'Escape') {
+        closeAuxPopup();
+        closeKnowModal();
+    }
 });
 
 // Generic multi-page navigation

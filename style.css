@@ -365,6 +365,41 @@ body {
     opacity: 0.7;
 }
 
+/* "you should know,," hint at the top of page 1 */
+.top-arrow {
+    position: absolute;
+    top: 2rem;
+    left: 50%;
+    /* Centering lives in the base rule, not only in the bounce keyframes. */
+    transform: translate(-50%, 0);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+    color: var(--text-primary);
+    cursor: pointer;
+    transition: opacity 0.3s ease;
+    animation: bounceUp 2s infinite;
+    z-index: 10;
+}
+
+.top-arrow-label {
+    font-size: 1rem;
+    font-weight: 300;
+    letter-spacing: 0.02em;
+    opacity: 0.85;
+}
+
+.top-arrow svg {
+    width: 1.75rem;
+    height: 1.75rem;
+    display: block;
+}
+
+.top-arrow:hover {
+    opacity: 0.7;
+}
+
 @keyframes bounceLeft {
 
     0%,
@@ -646,6 +681,73 @@ body {
 }
 
 .aux-modal-close:hover {
+    background: rgba(244, 114, 182, 0.25);
+    transform: scale(1.1);
+}
+
+/* "you should know,," text popup */
+.text-modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    background: rgba(2, 6, 23, 0.8);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    justify-content: center;
+    align-items: center;
+    padding: 2rem;
+}
+
+.text-modal.open {
+    display: flex;
+}
+
+.text-modal-content {
+    position: relative;
+    max-width: min(560px, 92vw);
+    max-height: 85vh;
+    overflow-y: auto;
+    background: rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 20px;
+    padding: 2.5rem 2.5rem;
+    box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.7);
+}
+
+.text-modal-body {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    font-size: 1.15rem;
+    font-weight: 300;
+    line-height: 1.7;
+    color: rgba(248, 250, 252, 0.92);
+    text-align: left;
+}
+
+.text-modal-close {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.75rem;
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    background: rgba(2, 6, 23, 0.6);
+    color: var(--text-primary);
+    font-size: 1.4rem;
+    line-height: 1;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.text-modal-close:hover {
     background: rgba(244, 114, 182, 0.25);
     transform: scale(1.1);
 }

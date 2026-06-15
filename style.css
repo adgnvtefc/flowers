@@ -629,14 +629,19 @@ body {
 .aux-modal {
     display: none;
     position: fixed;
-    inset: 0;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    height: 100dvh;
     z-index: 100;
     background: rgba(2, 6, 23, 0.8);
     backdrop-filter: blur(6px);
     -webkit-backdrop-filter: blur(6px);
     justify-content: center;
     align-items: center;
-    padding: 2rem;
+    /* Stay clear of the notch / Dynamic Island and the Safari toolbars. */
+    padding: max(1.5rem, env(safe-area-inset-top)) max(1.5rem, env(safe-area-inset-right)) max(1.5rem, env(safe-area-inset-bottom)) max(1.5rem, env(safe-area-inset-left));
 }
 
 .aux-modal.open {
@@ -646,13 +651,13 @@ body {
 .aux-modal-content {
     position: relative;
     max-width: min(680px, 92vw);
-    max-height: 88vh;
+    max-height: 100%;
 }
 
 .aux-modal-img {
     display: block;
     max-width: 100%;
-    max-height: 88vh;
+    max-height: 100%;
     width: auto;
     height: auto;
     object-fit: contain;
@@ -689,14 +694,19 @@ body {
 .text-modal {
     display: none;
     position: fixed;
-    inset: 0;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    height: 100dvh;
     z-index: 100;
     background: rgba(2, 6, 23, 0.8);
     backdrop-filter: blur(6px);
     -webkit-backdrop-filter: blur(6px);
     justify-content: center;
     align-items: center;
-    padding: 2rem;
+    /* Stay clear of the notch / Dynamic Island and the Safari toolbars. */
+    padding: max(1.5rem, env(safe-area-inset-top)) max(1.5rem, env(safe-area-inset-right)) max(1.5rem, env(safe-area-inset-bottom)) max(1.5rem, env(safe-area-inset-left));
 }
 
 .text-modal.open {
@@ -709,7 +719,7 @@ body {
     flex-direction: column;
     gap: 1.25rem;
     max-width: min(560px, 92vw);
-    max-height: 85vh;
+    max-height: 100%;
     background: rgba(255, 255, 255, 0.06);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
@@ -796,24 +806,31 @@ body {
 
 @media (max-width: 768px) {
 
-    /* Leave room at the bottom so the centered card never sits under the arrow. */
+    /* Keep clear of the notch/URL bar up top and the arrows/home bar at the bottom. */
     .page {
         align-items: center;
-        padding-bottom: 6rem;
+        padding-top: calc(1rem + env(safe-area-inset-top, 0px));
+        padding-bottom: calc(6rem + env(safe-area-inset-bottom, 0px));
     }
 
     .greeting {
-        font-size: 2.5rem;
+        font-size: 1.9rem;
     }
 
     .glass-container {
         padding: 2rem 1.5rem;
         max-width: 92vw;
         gap: 1.5rem;
-        /* Tall content (e.g. page 3) scrolls inside the card instead of
-           overflowing the viewport and pushing the arrow off-screen. */
-        max-height: calc(100dvh - 8rem);
+        /* Fit within the padded page so the card never runs behind the browser
+           chrome; tall content (e.g. page 3) scrolls inside the card instead. */
+        max-height: 100%;
         overflow-y: auto;
+    }
+
+    /* Cards with a pinned footer button also fit the padded page. */
+    #page4 .glass-container,
+    #page6 .glass-container {
+        max-height: 100%;
     }
 
     #sun-ascii,

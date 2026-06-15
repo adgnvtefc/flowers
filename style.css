@@ -705,15 +705,17 @@ body {
 
 .text-modal-content {
     position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
     max-width: min(560px, 92vw);
     max-height: 85vh;
-    overflow-y: auto;
     background: rgba(255, 255, 255, 0.06);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
     border: 1px solid rgba(255, 255, 255, 0.12);
     border-radius: 20px;
-    padding: 2.5rem 2.5rem;
+    padding: 2.5rem;
     box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.7);
 }
 
@@ -721,11 +723,40 @@ body {
     display: flex;
     flex-direction: column;
     gap: 1rem;
+    /* Only the text scrolls, so the "take me home" button stays pinned below it. */
+    min-height: 0;
+    overflow-y: auto;
     font-size: 1.15rem;
     font-weight: 300;
     line-height: 1.7;
     color: rgba(248, 250, 252, 0.92);
     text-align: left;
+}
+
+.text-modal-home {
+    flex-shrink: 0;
+    align-self: center;
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    background: rgba(255, 255, 255, 0.08);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 999px;
+    padding: 0.7rem 1.6rem;
+    cursor: pointer;
+    transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.text-modal-home:hover {
+    background: rgba(255, 255, 255, 0.18);
+    transform: scale(1.05);
+}
+
+.text-modal-home:active {
+    transform: scale(0.97);
 }
 
 .text-modal-close {
@@ -791,8 +822,8 @@ body {
     }
 
     .next-arrow {
-        bottom: 2rem;
-        right: 2rem;
+        bottom: calc(2rem + env(safe-area-inset-bottom, 0px));
+        right: calc(2rem + env(safe-area-inset-right, 0px));
         width: 3rem;
         height: 3rem;
     }
@@ -810,15 +841,20 @@ body {
         font-size: 1.05rem;
     }
 
+    /* A few px of breathing room from the browser edges (and any notch/home bar). */
     .down-arrow,
     .up-arrow {
-        bottom: 1.5rem;
+        bottom: calc(2.25rem + env(safe-area-inset-bottom, 0px));
+    }
+
+    .top-arrow {
+        top: calc(2.25rem + env(safe-area-inset-top, 0px));
     }
 
     /* Tuck "memories?" into the top-left so it clears the centered card. */
     .left-arrow {
-        top: 1.5rem;
-        left: 1.5rem;
+        top: calc(1.75rem + env(safe-area-inset-top, 0px));
+        left: calc(1.5rem + env(safe-area-inset-left, 0px));
         transform: none;
         animation: bounceLeftFlat 2s infinite;
     }

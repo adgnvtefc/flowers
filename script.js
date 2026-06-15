@@ -228,6 +228,12 @@ knowModal.addEventListener('click', (e) => {
     if (e.target === knowModal) closeKnowModal(); // click backdrop to dismiss
 });
 
+// "take me home" closes the popup and returns to page 1.
+document.getElementById('knowHomeBtn').addEventListener('click', () => {
+    closeKnowModal();
+    goToPage(indexOfPage('page1'));
+});
+
 document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {
         closeAuxPopup();

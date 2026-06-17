@@ -847,6 +847,56 @@ body {
     transform: scale(0.97);
 }
 
+/* Patch notes ("what's new") popup content */
+.patch-heading {
+    font-size: 1.5rem;
+    font-weight: 600;
+    background: linear-gradient(135deg, #fbcfe8, #f472b6, #fb7185);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-align: center;
+}
+
+.patch-title {
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: #fbcfe8;
+}
+
+.patch-changes {
+    margin: -0.25rem 0 0;
+    padding-left: 1.2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.patch-changes li {
+    line-height: 1.5;
+}
+
+.patch-older {
+    margin-top: 0.25rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    padding-top: 0.75rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.patch-older summary {
+    cursor: pointer;
+    font-weight: 600;
+    color: rgba(248, 250, 252, 0.7);
+    list-style-position: inside;
+}
+
+.patch-title-old {
+    font-size: 1rem;
+    color: rgba(251, 207, 232, 0.85);
+}
+
 .text-modal-close {
     position: absolute;
     top: 0.75rem;

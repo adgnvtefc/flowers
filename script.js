@@ -338,5 +338,69 @@ document.getElementById('goodMorningBtn').addEventListener('click', () => goToPa
 // The "memories?" detour off page 1.
 document.getElementById('memoriesBtn').addEventListener('click', () => goToPage(indexOfPage('page6')));
 
+// --- Patch notes ("what's new") -------------------------------------------
+// Loaded from patch-notes.js. Shows the newest entry on open, once per version.
+(function initPatchNotes() {
+    const patchModal = document.getElementById('patchModal');
+    const patchBody = document.getElementById('patchModalBody');
+    if (!patchModal || !patchBody || typeof PATCH_NOTES === 'undefined') return;
+
+    const versions = PATCH_NOTES.versions || {};
+    // Use the explicit `latest` pointer if it exists, otherwise fall back to the
+    // first entry — so a stale/typo'd `latest` never hides the notes entirely.
+    const latestKey = versions[PATCH_NOTES.latest] ? PATCH_NOTES.latest : Object.keys(versions)[0];
+    const latest = versions[latestKey];
+    if (!latest) return;
+
+    function changeList(changes) {
+        const ul = document.createElement('ul');
+        ul.className = 'patch-changes';
+        (changes || []).forEach(c => {
+            const li = document.createElement('li');
+            li.textContent = c;
+            ul.appendChild(li);
+        });
+        return ul;
+    }
+
+    function addEntry(parent, entry, titleClass) {
+        const title = document.createElement('p');
+        title.className = 'patch-title' + (titleClass ? ' ' + titleClass : '');
+        title.textContent = (entry.date ? ' · ' + entry.date : '');
+        parent.appendChild(title);
+        parent.appendChild(changeList(entry.changes));
+    }
+
+    // Heading + the latest entry.
+    const heading = document.createElement('h2');
+    heading.className = 'patch-heading';
+    heading.textContent = latest.title;
+    patchBody.appendChild(heading);
+    addEntry(patchBody, latest);
+
+    // Everything older, tucked into a collapsible section.
+    const older = Object.keys(versions).filter(k => k !== latestKey);
+    if (older.length) {
+        const details = document.createElement('details');
+        details.className = 'patch-older';
+        const summary = document.createElement('summary');
+        summary.textContent = 'older updates';
+        details.appendChild(summary);
+        older.forEach(k => addEntry(details, versions[k], 'patch-title-old'));
+        patchBody.appendChild(details);
+    }
+
+    function closePatch() {
+        patchModal.classList.remove('open');
+    }
+
+    document.getElementById('patchModalClose').addEventListener('click', closePatch);
+    patchModal.addEventListener('click', (e) => { if (e.target === patchModal) closePatch(); });
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closePatch(); });
+
+    // Show on every open.
+    patchModal.classList.add('open');
+})();
+
 // Start animation loop
 animate();

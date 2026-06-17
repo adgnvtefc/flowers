@@ -191,8 +191,10 @@
         </div>
     </div>
 
-    <script src="patch-notes.js"></script>
-    <script src="script.js"></script>
+    <!-- Bump ?v= whenever you change patch-notes.js or script.js so browsers
+         (yours AND hers) re-fetch instead of serving a stale cached copy. -->
+    <script src="patch-notes.js?v=2"></script>
+    <script src="script.js?v=2"></script>
 </body>
 
 </html>

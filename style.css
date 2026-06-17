@@ -613,6 +613,84 @@ body {
     margin-right: 0.35rem;
 }
 
+/* Private comment box (sent to Supabase, never shown on the page) */
+.memory-comment {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 100%;
+    margin-top: 0.25rem;
+}
+
+.memory-comment-input {
+    width: 100%;
+    resize: vertical;
+    min-height: 2.75rem;
+    font-family: 'Outfit', sans-serif;
+    font-size: 1rem;
+    font-weight: 300;
+    line-height: 1.5;
+    color: var(--text-primary);
+    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 12px;
+    padding: 0.6rem 0.8rem;
+}
+
+.memory-comment-input::placeholder {
+    color: rgba(248, 250, 252, 0.45);
+}
+
+.memory-comment-input:focus {
+    outline: none;
+    border-color: rgba(244, 114, 182, 0.6);
+}
+
+.memory-comment-row {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.memory-comment-send {
+    flex-shrink: 0;
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    background: rgba(244, 114, 182, 0.18);
+    border: 1px solid rgba(244, 114, 182, 0.4);
+    border-radius: 999px;
+    padding: 0.5rem 1.2rem;
+    cursor: pointer;
+    transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.memory-comment-send:hover {
+    background: rgba(244, 114, 182, 0.3);
+    transform: scale(1.05);
+}
+
+.memory-comment-send:active {
+    transform: scale(0.97);
+}
+
+.memory-comment-send:disabled {
+    opacity: 0.6;
+    cursor: default;
+    transform: none;
+}
+
+.memory-comment-status {
+    font-size: 0.9rem;
+    font-weight: 300;
+    color: rgba(167, 243, 208, 0.95);
+}
+
+.memory-comment-status.error {
+    color: #fca5a5;
+}
+
 /* Clickable note that opens an auxiliary screenshot */
 .aux-link {
     color: #fb7185;

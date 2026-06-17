@@ -168,6 +168,9 @@ const memoryHeader = document.getElementById('memoryHeader');
 const memoryImg = document.getElementById('memoryImg');
 const memoryTranslation = document.getElementById('memoryTranslation');
 const memoryNotes = document.getElementById('memoryNotes');
+const memoryCommentInput = document.getElementById('memoryCommentInput');
+const memoryCommentSend = document.getElementById('memoryCommentSend');
+const memoryCommentStatus = document.getElementById('memoryCommentStatus');
 let memoryIndex = -1;
 
 function showMemory(i) {
@@ -192,6 +195,11 @@ function showMemory(i) {
         memoryNotes.append(link);
     }
 
+    // Fresh comment box for each memory.
+    memoryCommentInput.value = '';
+    memoryCommentStatus.textContent = '';
+    memoryCommentStatus.classList.remove('error');
+
     // Replay the gentle fade-in for each new memory.
     memoryCard.classList.remove('fade-in-combo');
     void memoryCard.offsetWidth;
@@ -203,6 +211,52 @@ document.getElementById('memoryNextBtn').addEventListener('click', () => showMem
 document.getElementById('jumpNewBtn').addEventListener('click', () => {
     const i = memories.findIndex(m => m.src === NEW_MEMORIES_SRC);
     if (i !== -1) showMemory(i);
+});
+
+// --- Private comments (Supabase) -------------------------------------------
+// These are INSERT-ONLY: the anon key below can add a comment but cannot read
+// any back, so it's safe to ship publicly. See SUPABASE-SETUP.md for the table
+// + row-level-security policy that enforces this. Comments land privately in
+// your Supabase dashboard, never on the page.
+const SUPABASE_URL = 'https://lbvomqpeszbwwikjvngs.supabase.co'; // <-- paste your project URL
+const SUPABASE_ANON_KEY = 'sb_publishable_wYKbG-ShjsDI5QCVRJsbsA_-_D8BGX_';               // <-- paste your anon (public) key
+
+async function sendComment(memory, text) {
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/comments`, {
+        method: 'POST',
+        headers: {
+            'apikey': SUPABASE_ANON_KEY,
+            'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+            'Content-Type': 'application/json',
+            'Prefer': 'return=minimal'
+        },
+        body: JSON.stringify({ memory: memory, comment: text })
+    });
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+}
+
+memoryCommentSend.addEventListener('click', async () => {
+    const text = memoryCommentInput.value.trim();
+    if (!text) {
+        memoryCommentStatus.classList.remove('error');
+        memoryCommentStatus.textContent = 'teehee gotta write smth first';
+        return;
+    }
+
+    memoryCommentSend.disabled = true;
+    memoryCommentStatus.classList.remove('error');
+    memoryCommentStatus.textContent = 'sending...';
+
+    try {
+        await sendComment(memoryHeader.textContent, text);
+        memoryCommentInput.value = '';
+        memoryCommentStatus.textContent = 'swooooooosh 💌 🐌';
+    } catch (err) {
+        memoryCommentStatus.classList.add('error');
+        memoryCommentStatus.textContent = "i prolly made a whoopsie daisy mbbb";
+    } finally {
+        memoryCommentSend.disabled = false;
+    }
 });
 
 // Auxiliary screenshot popup
@@ -236,11 +290,14 @@ knowModal.addEventListener('click', (e) => {
     if (e.target === knowModal) closeKnowModal(); // click backdrop to dismiss
 });
 
-// "take me home" closes the popup and returns to page 1.
-document.getElementById('knowHomeBtn').addEventListener('click', () => {
-    closeKnowModal();
-    goToPage(indexOfPage('page1'));
-});
+// "take me home" closes the popup and returns to page 1 (optional button).
+const knowHomeBtn = document.getElementById('knowHomeBtn');
+if (knowHomeBtn) {
+    knowHomeBtn.addEventListener('click', () => {
+        closeKnowModal();
+        goToPage(indexOfPage('page1'));
+    });
+}
 
 document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape') {

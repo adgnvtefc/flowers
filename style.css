@@ -1032,4 +1032,11 @@ body {
     #page6 .memory-header {
         font-size: 1.2rem;
     }
+
+    /* Page 6 has no bottom-center arrow, so it doesn't need the 6rem bottom
+       clearance the other pages reserve. Reclaim it to kill the dead gap and
+       give the card room (so translation/notes/comment fit without scrolling). */
+    #page6 {
+        padding-bottom: calc(1.5rem + env(safe-area-inset-bottom, 0px));
+    }
 }

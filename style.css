@@ -1007,4 +1007,29 @@ body {
     .memory-photo {
         max-height: 34vh;
     }
+
+    /* Page 6's stacked headers (jump button + title + "Day X") ate half the
+       screen on mobile. Tighten every bit of vertical space above the photo. */
+    #page6 .glass-container {
+        padding: 1rem 1.25rem;
+        gap: 0.6rem;
+    }
+
+    #page6 .greeting {
+        font-size: 1.25rem;
+        line-height: 1.2;
+    }
+
+    #page6 .jump-new-btn {
+        font-size: 0.78rem;
+        padding: 0.35rem 0.85rem;
+    }
+
+    #page6 .memory-card {
+        gap: 0.6rem;
+    }
+
+    #page6 .memory-header {
+        font-size: 1.2rem;
+    }
 }

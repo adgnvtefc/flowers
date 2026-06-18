@@ -7,13 +7,10 @@ const PATCH_NOTES = {
     "latest": "v1",
     "versions": {
         "v1": {
-            "date": "June 16, 2026",
+            "date": "June 17, 2026",
             "title": "HELLOOO",
             "changes": [
-                "i decided to add a little bitta patch notes",
-                "sometimes i might say new stuff on here ig, or leave u to discover on ur ownt",
-                "but for today... take a look at memories and scroll down hehe",
-                "(this is optional no pressure)"
+                "small formatting improvements on the memories page is all i could do today sorry"
             ]
         },
     }

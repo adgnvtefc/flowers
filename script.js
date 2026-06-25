@@ -157,11 +157,19 @@ const memories = [
     { src: 'memories/day50-52.jpeg', header: 'Day 50 - 52', translation: 'EXPEDITION MINA 2', notes: 'Labor day weekend, Karaoke, Gnocchi, Bars, Six Flags, Cloud Watching, late night drives, all with the love of my life' },
     { src: 'memories/day53.jpeg', header: 'Day 53', translation: 'next time, ill still go cloud watching with you', notes: 'inspired by the jellyfish and crab shaped cloud we saw over the lake (and then i had to call my dad to send us to the station and he met us outside right when we were pulling in and we switched cars and we zoomed). After this we went to the petrossian building and had the leaning tower of bingsu hehe' },
     { src: 'memories/day54.jpeg', header: 'Day 54', translation: 'dont worry, i am coming back', notes: 'and always will, until back is back home, and never go again' },
-    { src: 'memories/day55.jpeg', header: 'Day 55', translation: 'for you', notes: 'in the tradition of flowers, the very first for you on snapchat. i love you. more coming sooon. ' }
+    { src: 'memories/day55.jpeg', header: 'Day 55', translation: 'for you', notes: 'in the tradition of flowers, the very first for you on snapchat. i love you. more coming sooon. ' },
+    { src: 'memories/day56.jpeg', header: 'Day 56', translation: 'I say, I do', notes: 'dont mind the horrific looking dog-rat thing, what the hell is that' },
+    { src: 'memories/day57.jpeg', header: 'Day 57', translation: 'I love you', notes: 'a generic flower, I forgot the context for it. But I LOVE YOU.' },
+    { src: 'memories/day58.jpeg', header: 'Day 58', translation: 'What I say, you believe.', notes: 'I guess ive been saying that for a while. This was the day you taught me the eight-pointed star, i think. I remember it like it was yesterday. how time flew. this is making me REALLY sad for some reason. I miss you.' },
+    { src: 'memories/day59pt1.jpeg', header: 'Day 59, pt 1', translation: 'i lovelovelovelovelovelovelovelove you', notes: 'i remember this one too, this was the day you drew a spider in your notebook.' },
+    { src: 'memories/day59pt2.jpeg', header: 'Day 59, pt 2', translation: 'look, how far weve come?', notes: 'and even further noww' },
+    { src: 'memories/day59pt3.jpeg', header: 'Day 59, pt 3', translation: 'in the future, how far do you want to go?', notes: 'onto infinity' },
+    { src: 'memories/day60.jpeg', header: 'Day 60', translation: 'im sorry', notes: 'wow, i guess this was a rough week. im really really sad now and i was going to stop here but i cant. im so sorry. i love you so much. even back then when nothing was perfect, but strive even harder now to fix whats wrong. theres one more after this.' },
+    { src: 'memories/day60bonus.jpeg', header: 'Bonus', translation: 'Flower', notes: 'because no sad, bebby no sad, bebby love 4ever' },
 ];
 
 // Where "i wanna see the new ones!!" jumps to — change this to the newest batch's photo.
-const NEW_MEMORIES_SRC = 'memories/day46.jpeg';
+const NEW_MEMORIES_SRC = 'memories/day56.jpeg';
 
 const memoryCard = document.getElementById('memoryCard');
 const memoryHeader = document.getElementById('memoryHeader');

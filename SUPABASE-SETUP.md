@@ -56,5 +56,71 @@ you can always read them; the website can't.
 - **Spam:** anyone reading your page source could POST junk with the anon key.
   For a quiet personal site this is negligible. If it ever happens, you can add a
   Supabase Edge Function or a length/rate check; ask and I'll wire it up.
-- **Want her to see comments back later?** That's a separate, opt-in step — say
-  the word and I'll add a read path (with its own policy).
+
+---
+
+## 6. Reading + replying on the site (private key)
+
+The site can now **show** the comments and let you **reply** — but only after a
+passphrase is entered. The passphrase lives in the database (not in the public
+repo), and is checked **server-side**, so the page source never reveals it.
+Share the passphrase with anyone you want to be able to read/reply (e.g. her).
+
+Open **SQL Editor → New query**, paste this, **change the passphrase**, and Run:
+
+```sql
+-- 1. Replies hang off each comment.
+alter table public.comments add column if not exists reply text;
+
+-- 2. The secret passphrase, in a table the public (anon) key can NEVER read
+--    (RLS on, no select policy). Only the SECURITY DEFINER functions below see it.
+create table if not exists public.app_secret (k text primary key, v text);
+insert into public.app_secret (k, v) values ('comments_key', 'CHANGE-ME-to-a-long-passphrase')
+  on conflict (k) do update set v = excluded.v;
+alter table public.app_secret enable row level security;
+
+-- 3. Read the thread for a memory — only if the key matches.
+create or replace function public.get_comments(p_key text, p_memory text)
+returns setof public.comments
+language plpgsql security definer set search_path = public as $$
+begin
+  if p_key is distinct from (select v from public.app_secret where k = 'comments_key') then
+    raise exception 'unauthorized';
+  end if;
+  return query
+    select * from public.comments where memory = p_memory order by created_at asc;
+end; $$;
+
+-- 4. Save your reply to a comment — only if the key matches.
+create or replace function public.add_reply(p_key text, p_id bigint, p_reply text)
+returns void
+language plpgsql security definer set search_path = public as $$
+begin
+  if p_key is distinct from (select v from public.app_secret where k = 'comments_key') then
+    raise exception 'unauthorized';
+  end if;
+  update public.comments set reply = p_reply where id = p_id;
+end; $$;
+
+-- 5. Let the anon key CALL these functions (the key check inside still guards them).
+grant execute on function public.get_comments(text, text) to anon;
+grant execute on function public.add_reply(text, bigint, text) to anon;
+```
+
+That's it — no code changes needed for the passphrase. On the site, open a memory →
+the comments button → type the passphrase once (remembered for the browser tab) →
+read her comments and reply inline.
+
+### To change the passphrase later
+```sql
+update public.app_secret set v = 'a-new-long-passphrase' where k = 'comments_key';
+```
+
+### Notes on this part
+- The passphrase travels over HTTPS and is verified inside Postgres — it's never
+  stored in the repo or exposed by the anon key. Pick something long; a short one
+  could in theory be brute-forced by hammering the RPC.
+- **One shared key** does both reading and replying. Anyone you give it to can
+  read the thread *and* post replies (which show as yours). For just the two of
+  you that's fine; if you ever want a read-only key for her + a separate reply
+  key for you, say the word and I'll split it.

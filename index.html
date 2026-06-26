@@ -10,7 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;600&family=Fira+Code:wght@400;600&display=swap"
         rel="stylesheet">
     <!-- Bump ?v= whenever you change style.css so browsers re-fetch it. -->
-    <link rel="stylesheet" href="style.css?v=3">
+    <link rel="stylesheet" href="style.css?v=4">
 </head>
 
 <body>
@@ -135,6 +135,7 @@
                         <button id="memoryCommentSend" class="memory-comment-send">⁀જ➣</button>
                         <span id="memoryCommentStatus" class="memory-comment-status" role="status"></span>
                     </div>
+                    <button id="memoryThreadBtn" class="memory-thread-btn" type="button">COMMENTS SEE EM NOW</button>
                 </div>
             </div>
             <button class="randomize-btn" id="memoryNextBtn">next &rarr;</button>
@@ -192,10 +193,31 @@
         </div>
     </div>
 
+    <div class="text-modal thread-modal" id="threadModal">
+        <div class="text-modal-content thread-modal-content">
+            <button class="text-modal-close" id="threadModalClose" aria-label="close">&times;</button>
+            <h2 class="thread-title" id="threadTitle"></h2>
+
+            <!-- Shown until the right key is entered. -->
+            <div class="thread-unlock" id="threadUnlock">
+                <p class="thread-unlock-label">enter the key to read &amp; reply 🔑</p>
+                <input type="password" id="threadKeyInput" class="memory-comment-input thread-key-input"
+                    autocomplete="off" placeholder="private key">
+                <div class="memory-comment-row">
+                    <button id="threadUnlockBtn" class="memory-comment-send">unlock</button>
+                    <span id="threadUnlockStatus" class="memory-comment-status" role="status"></span>
+                </div>
+            </div>
+
+            <!-- The conversation (her comments + your replies), once unlocked. -->
+            <div class="thread-body" id="threadBody"></div>
+        </div>
+    </div>
+
     <!-- Bump ?v= whenever you change patch-notes.js or script.js so browsers
          (yours AND hers) re-fetch instead of serving a stale cached copy. -->
     <script src="patch-notes.js?v=2"></script>
-    <script src="script.js?v=2"></script>
+    <script src="script.js?v=3"></script>
 </body>
 
 </html>

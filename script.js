@@ -222,10 +222,10 @@ document.getElementById('jumpNewBtn').addEventListener('click', () => {
 });
 
 // --- Private comments (Supabase) -------------------------------------------
-// These are INSERT-ONLY: the anon key below can add a comment but cannot read
-// any back, so it's safe to ship publicly. See SUPABASE-SETUP.md for the table
-// + row-level-security policy that enforces this. Comments land privately in
-// your Supabase dashboard, never on the page.
+// Sending is INSERT-ONLY: the anon key below can add a comment but cannot read
+// any back, so it's safe to ship publicly. Reading + replying happens further
+// down, gated by a passphrase that's checked server-side (never in this file).
+// See SUPABASE-SETUP.md for the table, RLS policy, and RPC functions.
 const SUPABASE_URL = 'https://lbvomqpeszbwwikjvngs.supabase.co'; // <-- paste your project URL
 const SUPABASE_ANON_KEY = 'sb_publishable_wYKbG-ShjsDI5QCVRJsbsA_-_D8BGX_';               // <-- paste your anon (public) key
 
@@ -266,6 +266,202 @@ memoryCommentSend.addEventListener('click', async () => {
         memoryCommentSend.disabled = false;
     }
 });
+
+// --- Reading + replying to comments (key-gated) ----------------------------
+// Reads/replies go through two Supabase RPC functions (get_comments, add_reply)
+// that check a passphrase SERVER-SIDE before returning or writing anything. The
+// passphrase is never in this file — it's typed in at runtime and only kept for
+// the tab session. See SUPABASE-SETUP.md for the SQL that backs this.
+const THREAD_KEY_STORE = 'commentsKey';
+const getThreadKey = () => sessionStorage.getItem(THREAD_KEY_STORE);
+
+async function rpc(fn, body) {
+    const res = await fetch(`${SUPABASE_URL}/rest/v1/rpc/${fn}`, {
+        method: 'POST',
+        headers: {
+            'apikey': SUPABASE_ANON_KEY,
+            'Authorization': `Bearer ${SUPABASE_ANON_KEY}`,
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(body)
+    });
+    if (!res.ok) throw new Error('HTTP ' + res.status); // wrong key => function raises => not ok
+    const text = await res.text();
+    return text ? JSON.parse(text) : null;
+}
+
+const threadModal = document.getElementById('threadModal');
+const threadTitle = document.getElementById('threadTitle');
+const threadUnlock = document.getElementById('threadUnlock');
+const threadBody = document.getElementById('threadBody');
+const threadKeyInput = document.getElementById('threadKeyInput');
+const threadUnlockBtn = document.getElementById('threadUnlockBtn');
+const threadUnlockStatus = document.getElementById('threadUnlockStatus');
+let threadMemory = null;
+
+function showThreadUnlock() {
+    threadUnlock.style.display = '';
+    threadBody.style.display = 'none';
+    threadUnlockStatus.textContent = '';
+    threadUnlockStatus.classList.remove('error');
+    threadKeyInput.value = '';
+}
+
+function showThreadBody() {
+    threadUnlock.style.display = 'none';
+    threadBody.style.display = '';
+}
+
+function openThread() {
+    threadMemory = memoryHeader.textContent;
+    threadTitle.textContent = threadMemory;
+    threadModal.classList.add('open');
+    if (getThreadKey()) {
+        showThreadBody();
+        loadThread();
+    } else {
+        showThreadUnlock();
+        threadKeyInput.focus();
+    }
+}
+
+function closeThread() {
+    threadModal.classList.remove('open');
+}
+
+async function loadThread() {
+    threadBody.innerHTML = '<p class="thread-empty">loading…</p>';
+    try {
+        const rows = await rpc('get_comments', { p_key: getThreadKey(), p_memory: threadMemory });
+        renderThread(rows || []);
+    } catch (err) {
+        // Stored key is bad/expired — drop it and ask again.
+        sessionStorage.removeItem(THREAD_KEY_STORE);
+        showThreadUnlock();
+        threadUnlockStatus.classList.add('error');
+        threadUnlockStatus.textContent = 'hmm, that key stopped working';
+    }
+}
+
+function renderThread(rows) {
+    threadBody.innerHTML = '';
+    if (!rows.length) {
+        const p = document.createElement('p');
+        p.className = 'thread-empty';
+        p.textContent = 'no notes on this one yet 🐌';
+        threadBody.appendChild(p);
+        return;
+    }
+    rows.forEach(row => {
+        const item = document.createElement('div');
+        item.className = 'thread-item';
+
+        const her = document.createElement('div');
+        her.className = 'thread-msg her';
+        her.textContent = row.comment;
+        item.appendChild(her);
+
+        const zone = document.createElement('div');
+        zone.className = 'thread-reply-zone';
+        renderReplyZone(zone, row);
+        item.appendChild(zone);
+
+        threadBody.appendChild(item);
+    });
+}
+
+// Either the existing reply (+ an edit link) or a "reply" link that opens an input.
+function renderReplyZone(zone, row) {
+    zone.innerHTML = '';
+    if (row.reply) {
+        const you = document.createElement('div');
+        you.className = 'thread-msg you';
+        you.textContent = row.reply;
+        zone.appendChild(you);
+    }
+    const link = document.createElement('button');
+    link.className = 'thread-reply-link';
+    link.textContent = row.reply ? 'edit' : '＋ reply';
+    link.addEventListener('click', () => showReplyInput(zone, row));
+    zone.appendChild(link);
+}
+
+function showReplyInput(zone, row) {
+    zone.innerHTML = '';
+    const ta = document.createElement('textarea');
+    ta.className = 'memory-comment-input thread-reply-input';
+    ta.rows = 2;
+    ta.maxLength = 2000;
+    ta.value = row.reply || '';
+    ta.placeholder = 'your reply…';
+    zone.appendChild(ta);
+
+    const rowEl = document.createElement('div');
+    rowEl.className = 'memory-comment-row';
+    const send = document.createElement('button');
+    send.className = 'memory-comment-send';
+    send.textContent = 'send';
+    const cancel = document.createElement('button');
+    cancel.className = 'thread-reply-link';
+    cancel.textContent = 'cancel';
+    const status = document.createElement('span');
+    status.className = 'memory-comment-status';
+    rowEl.append(send, cancel, status);
+    zone.appendChild(rowEl);
+    ta.focus();
+
+    cancel.addEventListener('click', () => renderReplyZone(zone, row));
+    send.addEventListener('click', async () => {
+        const text = ta.value.trim();
+        if (!text) {
+            status.classList.add('error');
+            status.textContent = 'write smth first hehe';
+            return;
+        }
+        send.disabled = true;
+        status.classList.remove('error');
+        status.textContent = 'sending…';
+        try {
+            await rpc('add_reply', { p_key: getThreadKey(), p_id: row.id, p_reply: text });
+            row.reply = text;
+            renderReplyZone(zone, row);
+        } catch (err) {
+            status.classList.add('error');
+            status.textContent = 'whoopsie, try again';
+            send.disabled = false;
+        }
+    });
+}
+
+threadUnlockBtn.addEventListener('click', async () => {
+    const key = threadKeyInput.value.trim();
+    if (!key) {
+        threadUnlockStatus.classList.remove('error');
+        threadUnlockStatus.textContent = 'type the key first 🔑';
+        return;
+    }
+    threadUnlockBtn.disabled = true;
+    threadUnlockStatus.classList.remove('error');
+    threadUnlockStatus.textContent = 'checking…';
+    try {
+        // A successful read both validates the key and gives us the thread.
+        const rows = await rpc('get_comments', { p_key: key, p_memory: threadMemory });
+        sessionStorage.setItem(THREAD_KEY_STORE, key);
+        showThreadBody();
+        renderThread(rows || []);
+    } catch (err) {
+        threadUnlockStatus.classList.add('error');
+        threadUnlockStatus.textContent = 'nope, wrong key';
+    } finally {
+        threadUnlockBtn.disabled = false;
+    }
+});
+
+threadKeyInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') threadUnlockBtn.click(); });
+document.getElementById('memoryThreadBtn').addEventListener('click', openThread);
+document.getElementById('threadModalClose').addEventListener('click', closeThread);
+threadModal.addEventListener('click', (e) => { if (e.target === threadModal) closeThread(); });
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && threadModal.classList.contains('open')) closeThread(); });
 
 // Auxiliary screenshot popup
 const auxModal = document.getElementById('auxModal');

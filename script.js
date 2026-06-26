@@ -285,8 +285,13 @@ async function rpc(fn, body) {
         },
         body: JSON.stringify(body)
     });
-    if (!res.ok) throw new Error('HTTP ' + res.status); // wrong key => function raises => not ok
     const text = await res.text();
+    if (!res.ok) {
+        // Surface the server's actual reason ("unauthorized", "Could not find
+        // the function...", etc.) instead of a bare HTTP 400.
+        console.error(`RPC ${fn} failed (${res.status}):`, text);
+        throw new Error('HTTP ' + res.status + ' — ' + text);
+    }
     return text ? JSON.parse(text) : null;
 }
 
@@ -416,6 +421,13 @@ function showReplyInput(zone, row) {
         if (!text) {
             status.classList.add('error');
             status.textContent = 'write smth first hehe';
+            return;
+        }
+        if (row.id == null) {
+            // get_comments didn't hand back an id, so add_reply can't target a row.
+            status.classList.add('error');
+            status.textContent = 'no id on this comment — get_comments must SELECT *';
+            console.error('Reply target has no id. Row from get_comments:', row);
             return;
         }
         send.disabled = true;

@@ -353,7 +353,7 @@ function renderThread(rows) {
     if (!rows.length) {
         const p = document.createElement('p');
         p.className = 'thread-empty';
-        p.textContent = 'no notes on this one yet 🐌';
+        p.textContent = 'no notes on this one yet';
         threadBody.appendChild(p);
         return;
     }

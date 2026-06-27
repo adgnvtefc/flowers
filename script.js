@@ -273,7 +273,13 @@ memoryCommentSend.addEventListener('click', async () => {
 // passphrase is never in this file — it's typed in at runtime and only kept for
 // the tab session. See SUPABASE-SETUP.md for the SQL that backs this.
 const THREAD_KEY_STORE = 'commentsKey';
+const THREAD_ROLE_STORE = 'commentsRole'; // 'reply' (you) or 'read' (her)
 const getThreadKey = () => sessionStorage.getItem(THREAD_KEY_STORE);
+const getThreadRole = () => sessionStorage.getItem(THREAD_ROLE_STORE);
+function clearThreadKey() {
+    sessionStorage.removeItem(THREAD_KEY_STORE);
+    sessionStorage.removeItem(THREAD_ROLE_STORE);
+}
 
 async function rpc(fn, body) {
     const res = await fetch(`${SUPABASE_URL}/rest/v1/rpc/${fn}`, {
@@ -341,7 +347,7 @@ async function loadThread() {
         renderThread(rows || []);
     } catch (err) {
         // Stored key is bad/expired — drop it and ask again.
-        sessionStorage.removeItem(THREAD_KEY_STORE);
+        clearThreadKey();
         showThreadUnlock();
         threadUnlockStatus.classList.add('error');
         threadUnlockStatus.textContent = 'hmm, that key stopped working';
@@ -357,41 +363,51 @@ function renderThread(rows) {
         threadBody.appendChild(p);
         return;
     }
+    // The viewer's own messages sit on the right (.you), the other person's on
+    // the left (.her). For the reply key (you), comments are "the other person"
+    // and replies are "you". For the read key (her), it's mirrored: her comments
+    // are "you" (right), your replies are "the other person" (left).
+    const isReader = getThreadRole() === 'read';
+    const commentClass = isReader ? 'you' : 'her';
+    const replyClass = isReader ? 'her' : 'you';
+
     rows.forEach(row => {
         const item = document.createElement('div');
         item.className = 'thread-item';
 
-        const her = document.createElement('div');
-        her.className = 'thread-msg her';
-        her.textContent = row.comment;
-        item.appendChild(her);
+        const comment = document.createElement('div');
+        comment.className = 'thread-msg ' + commentClass;
+        comment.textContent = row.comment;
+        item.appendChild(comment);
 
         const zone = document.createElement('div');
         zone.className = 'thread-reply-zone';
-        renderReplyZone(zone, row);
+        renderReplyZone(zone, row, replyClass);
         item.appendChild(zone);
 
         threadBody.appendChild(item);
     });
 }
 
-// Either the existing reply (+ an edit link) or a "reply" link that opens an input.
-function renderReplyZone(zone, row) {
+// Shows the reply bubble (if any). Only the reply-key holder gets the edit/reply
+// link to add or change it; the read-key holder just sees it.
+function renderReplyZone(zone, row, replyClass) {
     zone.innerHTML = '';
     if (row.reply) {
-        const you = document.createElement('div');
-        you.className = 'thread-msg you';
-        you.textContent = row.reply;
-        zone.appendChild(you);
+        const reply = document.createElement('div');
+        reply.className = 'thread-msg ' + replyClass;
+        reply.textContent = row.reply;
+        zone.appendChild(reply);
     }
+    if (getThreadRole() !== 'reply') return; // read-only: no reply controls
     const link = document.createElement('button');
     link.className = 'thread-reply-link';
     link.textContent = row.reply ? 'edit' : '＋ reply';
-    link.addEventListener('click', () => showReplyInput(zone, row));
+    link.addEventListener('click', () => showReplyInput(zone, row, replyClass));
     zone.appendChild(link);
 }
 
-function showReplyInput(zone, row) {
+function showReplyInput(zone, row, replyClass) {
     zone.innerHTML = '';
     const ta = document.createElement('textarea');
     ta.className = 'memory-comment-input thread-reply-input';
@@ -415,7 +431,7 @@ function showReplyInput(zone, row) {
     zone.appendChild(rowEl);
     ta.focus();
 
-    cancel.addEventListener('click', () => renderReplyZone(zone, row));
+    cancel.addEventListener('click', () => renderReplyZone(zone, row, replyClass));
     send.addEventListener('click', async () => {
         const text = ta.value.trim();
         if (!text) {
@@ -436,7 +452,7 @@ function showReplyInput(zone, row) {
         try {
             await rpc('add_reply', { p_key: getThreadKey(), p_id: row.id, p_reply: text });
             row.reply = text;
-            renderReplyZone(zone, row);
+            renderReplyZone(zone, row, replyClass);
         } catch (err) {
             status.classList.add('error');
             status.textContent = 'whoopsie, try again';
@@ -456,11 +472,14 @@ threadUnlockBtn.addEventListener('click', async () => {
     threadUnlockStatus.classList.remove('error');
     threadUnlockStatus.textContent = 'checking…';
     try {
-        // A successful read both validates the key and gives us the thread.
-        const rows = await rpc('get_comments', { p_key: key, p_memory: threadMemory });
+        // key_role tells us whether this is the reply key (you) or the read key
+        // (her) — and returns null for a wrong key, which decides the perspective.
+        const role = await rpc('key_role', { p_key: key });
+        if (role !== 'reply' && role !== 'read') throw new Error('bad key');
         sessionStorage.setItem(THREAD_KEY_STORE, key);
+        sessionStorage.setItem(THREAD_ROLE_STORE, role);
         showThreadBody();
-        renderThread(rows || []);
+        loadThread();
     } catch (err) {
         threadUnlockStatus.classList.add('error');
         threadUnlockStatus.textContent = 'nope, wrong key';

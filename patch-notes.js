@@ -4,8 +4,19 @@
 // at its key. The newest note pops up when the site is opened (once per version,
 // so it isn't naggy); all of them stay here and are viewable under "older updates".
 const PATCH_NOTES = {
-    "latest": "v3",
+    "latest": "v4",
     "versions": {
+        "v4": {
+            date: "June 27, 2026",
+            "title": "better comments wheee",
+            "changes": [
+                "using password now makes it look like i replied yayyy. you can leave comments as normal.",
+                "there r more memories",
+                "but i left the new memories button pointing towards the old one in case you want to check out the new feature hehe",
+                "yes ik it messes it up when i comment instead of reply, so ill try not to do that hehe and stick to replies",
+                "better system coming soon lmao"
+            ]
+        },
         "v3": {
             "date": "June 25, 2026",
             "title": "interactivity yayyy",

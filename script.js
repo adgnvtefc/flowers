@@ -166,10 +166,15 @@ const memories = [
     { src: 'memories/day59pt3.jpeg', header: 'Day 59, pt 3', translation: 'in the future, how far do you want to go?', notes: 'onto infinity' },
     { src: 'memories/day60.jpeg', header: 'Day 60', translation: 'im sorry', notes: 'wow, i guess this was a rough week. im really really sad now and i was going to stop here but i cant. im so sorry. i love you so much. even back then when nothing was perfect, but strive even harder now to fix whats wrong. theres one more after this.' },
     { src: 'memories/day60bonus.jpeg', header: 'Bonus', translation: 'Flower', notes: 'because no sad, bebby no sad, bebby love 4ever' },
+    { src: 'memories/day61.jpeg', header: 'Day 61', translation: 'i will find you', notes: 'that is both a threat (lovingly) and an inevitability (very lovingly)' },
+    { src: 'memories/day62.jpeg', header: 'Day 62', translation: 'my art has a lot of room for improvement', notes: 'as seen', aux: { src: 'memories/auxiliary2.jpeg', text: 'here hehe' } },
+    { src: 'memories/day63.jpeg', header: 'Day 63', translation: 'i love you', notes: 'omggg its the ferg sticker its from here ahhhh' },
+    { src: 'memories/day64.jpeg', header: 'Day 64', translation: 'the world is so big, but i still met you', notes: 'me so lucky' },
+    { src: 'memories/day65.jpeg', header: 'Day 65', translation: 'for you', notes: 'the flower of my heart hehe. i dont know why this one is so basic, but my love for you is anything but. more coming soooon :)' }
 ];
 
 // Where "i wanna see the new ones!!" jumps to — change this to the newest batch's photo.
-const NEW_MEMORIES_SRC = 'memories/day56.jpeg';
+const NEW_MEMORIES_SRC = 'memories/day55.jpeg';
 
 const memoryCard = document.getElementById('memoryCard');
 const memoryHeader = document.getElementById('memoryHeader');

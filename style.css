@@ -167,6 +167,36 @@ body {
     text-shadow: 0 0 10px rgba(251, 207, 232, 0.6);
 }
 
+/* The rotating flowers are taller, multi-line art — tighter leading keeps the
+   strokes connected, and the bloom scales/fades each one in. Transforms don't
+   affect layout, so the (already fixed-size) canvas never shifts. */
+#sun-ascii {
+    font-size: 1rem;
+    line-height: 1.1;
+    transform-origin: center;
+    will-change: transform, opacity;
+}
+
+#sun-ascii.bloom {
+    animation: flowerBloom 0.9s ease-out both;
+}
+
+@keyframes flowerBloom {
+    0% {
+        opacity: 0;
+        transform: scale(0.55);
+    }
+
+    55% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
 .next-arrow {
     position: absolute;
     bottom: 3rem;

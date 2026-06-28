@@ -1,9 +1,11 @@
-// Blooming sun — three frames cycled to make it open and close.
-// Art by jgs, via https://asciiart.website/art/7548 (signature removed).
-const sunFrames = [
-    "        _ _          \n     .-( : )-.       \n    (   \\'/   )      \n   ( `'.;;;.'` )     \n  ( :-=;;;;;=-: )    \n   (  .';;;'.  )     \n    (`  /.\\  `)      \n     '-(_:_)-'       ",
-    "        _   _        \n     .-( '.' )-.     \n    (   \\ : /   )    \n   ( `'-.;;;.-'` )   \n  ( :-==;;;;;==-: )  \n   (  .-';;;'-.  )   \n    (`  / : \\  `)    \n     '-(_.'._)-'     ",
-    "        __   __      \n     .-(  '.'  )-.   \n    (   \\  |  /   )  \n   ( `'-.;;;;;.-'` ) \n  ( :-==;;;;;;;==-: )\n   (  .-';;;;;'-.  ) \n    (`  /  |  \\  `)  \n     '-(__.'.__)-'   "
+// Four flower configs for the front page. Each blooms in, holds, then the
+// next one blooms. They're normalized below to one fixed canvas so the
+// display never changes size as they rotate.
+const flowerArt = [
+    "        __   __      \n     .-(  '.'  )-.   \n    (   \\  |  /   )  \n   ( `'-.;;;;;.-'` ) \n  ( :-==;;;;;;;==-: )\n   (  .-';;;;;'-.  ) \n    (`  /  |  \\  `)  \n     '-(__.'.__)-'   ",
+    "         .-==-.\n        /{.=-.}\\\n       | / .  \\ |\n       |;   :  :|\n       \\(   :  )/\n        `._'__.'\n      |\\   ||\n      \\ \\  ||\n       | | ||\n       | | ||   /|\n       \\  \\||  / /\n        \\ ||| | |\n         | || | |\n          \\||/  /\n           ||| /\n           || |\n           ||/\n           ||\n^^^^^^^^^^^^^^^^^^^^^^",
+    "      _.-.       \n    -'    '      .-'-.\n  .',      '    '     '\n  ', `,     .  '.-.   '\n   '   \\    ' .\"   \".'\n    '.' \\   ;.\",    \"-._\n     '   '. ,\"  \"-.\"    '.\n      _.--'.    .\" ,.--.  .\n   , '     \"-..\".-'     \\ '\n -`     _.''\".    ' .    '\n'     -'   \"  '-     '.\n'    '    \"     '      '\n '.'     \"       '    .'\n   ',    \"        ' .'\n         \"        ,'\n         \"\n         \"\n       _.\"._",
+    "             .-.'  '.-.\n          .-(   \\  /   )-.\n         /   '..oOOo..'   \\\n ,       \\.--.oOOOOOOo.--./\n |\\  ,   (   :oOOOOOOo:   )\n_\\.\\/|   /'--'oOOOOOOo'--'\\\n'-.. ;/| \\   .''oOOo''.   /\n.--`'. :/|'-(   /  \\   )-'\n '--. `. / //'-'.__.'-;\n   `'-,_';//      ,  /|\n        '((       |\\/./_\n          \\\\  . |\\; ..-'\n           \\\\ |\\: .'`--.\n            \\\\, .' .--'\n             ))'_,-'`\n            //-'\n           // \n          //\n         |/"
 ];
 
 const heartFrames = [
@@ -13,15 +15,45 @@ const heartFrames = [
     "                 \n _..._   _..._   \n.'    '\"'    '.  \n|             |  \n \\           /   \n  '.       .'    \n    '-. .-'      \n      \\ /        \n       v         "
 ];
 
-const maxSunFrame = sunFrames.length - 1;
 const maxHeartFrame = heartFrames.length - 1;
 
-// Single sun and heart that ping-pong through their frames so they appear to bloom.
-let sun = { frame: 0, direction: 1, delay: 0 };
+// The heart (page 2) ping-pongs through its frames so it appears to bloom.
 let heart = { frame: 0, direction: 1, delay: 0 };
 
 const sunAsciiElement = document.getElementById('sun-ascii');
 const heartAsciiElement = document.getElementById('heart-ascii');
+
+// Normalize every flower config to one fixed canvas (the max width/height across
+// all of them), centered, so the <pre> box stays EXACTLY the same size as the
+// flowers rotate — no resizing, no layout jump.
+const flowerFrames = (() => {
+    const blocks = flowerArt.map(a => a.split('\n'));
+    const maxW = Math.max(...blocks.flat().map(l => l.length));
+    const maxH = Math.max(...blocks.map(b => b.length));
+    const blank = ' '.repeat(maxW);
+    return blocks.map(lines => {
+        // Center the art as a whole BLOCK (shift every line by the same amount)
+        // so its internal alignment — flower over stem over ground — is preserved.
+        const blockW = Math.max(...lines.map(l => l.length));
+        const left = ' '.repeat(Math.floor((maxW - blockW) / 2));
+        const padded = lines.map(l => (left + l).padEnd(maxW));
+        const top = Math.floor((maxH - padded.length) / 2);
+        const bottom = maxH - padded.length - top;
+        return Array(top).fill(blank).concat(padded, Array(bottom).fill(blank)).join('\n');
+    });
+})();
+
+// Rotate the flowers: bloom one in, hold it a beat, then bloom the next.
+let flowerIdx = 0;
+function bloomNextFlower() {
+    sunAsciiElement.textContent = flowerFrames[flowerIdx];
+    sunAsciiElement.classList.remove('bloom');
+    void sunAsciiElement.offsetWidth; // force reflow so the CSS bloom replays
+    sunAsciiElement.classList.add('bloom');
+    flowerIdx = (flowerIdx + 1) % flowerFrames.length;
+}
+bloomNextFlower();
+setInterval(bloomNextFlower, 1500); // ~0.9s bloom + ~1.5s hold
 
 // Advance one frame, pausing briefly at the fully-open and fully-closed ends.
 function tick(e, maxFrame, pauseOpen, pauseClosed) {
@@ -44,10 +76,9 @@ function tick(e, maxFrame, pauseOpen, pauseClosed) {
 let currentPage = 0;
 
 function animate() {
-    if (currentPage === 0) {
-        sunAsciiElement.textContent = sunFrames[sun.frame];
-        tick(sun, maxSunFrame, 6, 4);
-    } else if (currentPage === 1) {
+    // Page 1's flowers are driven by bloomNextFlower(); here we just animate the
+    // heart on page 2.
+    if (currentPage === 1) {
         heartAsciiElement.textContent = heartFrames[heart.frame];
         tick(heart, maxHeartFrame, 8, 4);
     }

@@ -201,11 +201,18 @@ const memories = [
     { src: 'memories/day62.jpeg', header: 'Day 62', translation: 'my art has a lot of room for improvement', notes: 'as seen', aux: { src: 'memories/auxiliary2.jpeg', text: 'here hehe' } },
     { src: 'memories/day63.jpeg', header: 'Day 63', translation: 'i love you', notes: 'omggg its the ferg sticker its from here ahhhh' },
     { src: 'memories/day64.jpeg', header: 'Day 64', translation: 'the world is so big, but i still met you', notes: 'me so lucky' },
-    { src: 'memories/day65.jpeg', header: 'Day 65', translation: 'for you', notes: 'the flower of my heart hehe. i dont know why this one is so basic, but my love for you is anything but. more coming soooon :)' }
+    { src: 'memories/day65.jpeg', header: 'Day 65', translation: 'for you', notes: 'the flower of my heart hehe. i dont know why this one is so basic, but my love for you is anything but. more coming soooon :)' },
+    { src: 'memories/day66.jpeg', header: 'Day 66', translation: 'smite all your problems!!', notes: 'RAHHHH (also prepare for my stick-figure-less-era (very short))' },
+    { src: 'memories/day67.jpeg', header: 'Day 67', translation: 'A flower for you', notes: 'six sevennnn (sorry) (i love you)' },
+    { src: 'memories/day68.jpeg', header: 'Day 68', translation: 'many lucky clouds blowing our way!', notes: 'take this as a blessing for your day ahead. i love you so much. you will do amazing.' },
+    { src: 'memories/day69.jpeg', header: 'Day 69', translation: 'tomorrow :)', notes: 'hehe this was the day before providence 2', aux: { src: 'memories/auxiliary3.jpeg', text: 'you sent me this snap right before you got on this plane and my heart melted' } },
+    { src: 'memories/day70-73.png', header: 'Day 70 - 73', translation: 'PROVIDENCE 2', notes: 'STATUE PARK SHACK SHACK PINK PANTHER PROVIDENCE COAL FIRED PIZZA SO MANY GOOD MEMORIES AHHH' },
+    { src: 'memories/day74.jpeg', header: 'Day 74', translation: 'Us, together', notes: 'I love your sketchbook and i love you. Somehow I hallucinat-remembered "hanmo and anushkas skeptchbook" but its not on the actual book so its on here now wheee' },
+    { src: 'memories/day75.jpeg', header: 'Day 75', translation: 'good morning, i love you', notes: 'all day, every day. more coming soon!!' }
 ];
 
 // Where "i wanna see the new ones!!" jumps to — change this to the newest batch's photo.
-const NEW_MEMORIES_SRC = 'memories/day55.jpeg';
+const NEW_MEMORIES_SRC = 'memories/day66.jpeg';
 
 const memoryCard = document.getElementById('memoryCard');
 const memoryHeader = document.getElementById('memoryHeader');

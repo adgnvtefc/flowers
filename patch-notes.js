@@ -6,6 +6,13 @@
 const PATCH_NOTES = {
     "latest": "v6",
     "versions": {
+        "v7": {
+            "date": "June 30, 2026",
+            "title": "day 260!! Soon to be 261",
+            "changes": [
+                "just these patch notes... am too tired for anyting else, but the website is here to peruse at ur pleasure :D"
+            ]
+        },
         "v6": {
             "date": "June 29, 2026",
             "title": "new memories!!!",

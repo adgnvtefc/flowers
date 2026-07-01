@@ -616,6 +616,49 @@ document.getElementById('goodMorningBtn').addEventListener('click', () => goToPa
 // The "memories?" detour off page 1.
 document.getElementById('memoriesBtn').addEventListener('click', () => goToPage(indexOfPage('page6')));
 
+// --- GAMBLING (page 7) -----------------------------------------------------
+// Press the lever, win a random reward. Edit REWARDS freely — text only for now.
+const REWARDS = [
+    'A silly selfie',
+    'A drawing of something that reminded me of you today',
+    'A poem',
+    'Voucher for INFINITE KISSES AND CUDDLES FOREVER',
+    'Wildcard — your wish be my command',
+    'You get to decide the next website addition'
+];
+
+const gambleBtn = document.getElementById('gambleBtn');
+const gambleResult = document.getElementById('gambleResult');
+let gambling = false;
+
+gambleBtn.addEventListener('click', () => {
+    if (gambling) return;
+    gambling = true;
+    gambleBtn.disabled = true;
+    const win = REWARDS[Math.floor(Math.random() * REWARDS.length)];
+
+    // Spin: flick through the rewards fast, then land on the winner.
+    let ticks = 0;
+    const totalTicks = 16;
+    gambleResult.classList.remove('gamble-win');
+    gambleResult.classList.add('gamble-spinning');
+    const spin = setInterval(() => {
+        gambleResult.textContent = REWARDS[Math.floor(Math.random() * REWARDS.length)];
+        if (++ticks >= totalTicks) {
+            clearInterval(spin);
+            gambleResult.textContent = '🎉 ' + win + ' 🎉';
+            gambleResult.classList.remove('gamble-spinning');
+            gambleResult.classList.add('gamble-win');
+            gambleBtn.disabled = false;
+            gambling = false;
+        }
+    }, 80);
+});
+
+// The "made lovelier by GAMBLING" detour off page 2, and its way back.
+document.getElementById('gambleEntryBtn').addEventListener('click', () => goToPage(indexOfPage('page7')));
+document.getElementById('gambleBackBtn').addEventListener('click', () => goToPage(indexOfPage('page2')));
+
 // --- Patch notes ("what's new") -------------------------------------------
 // Loaded from patch-notes.js. Shows the newest entry on open, once per version.
 (function initPatchNotes() {

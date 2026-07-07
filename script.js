@@ -623,8 +623,16 @@ const REWARDS = [
     'A drawing of something that reminded me of you today',
     'A poem',
     'Voucher for INFINITE KISSES AND CUDDLES FOREVER',
-    'Wildcard — your wish be my command',
-    'You get to decide the next website addition'
+    //'Wildcard — your wish be my command',
+    'You get to decide the next website addition',
+    'a short story about a topic of your choice',
+    'a bouquet',
+    'give me a time, and ill text you a picture of where i am at exactly that time',
+    'JACKPOT (you) (your wish be my command)',
+    '(attempt at) a song for you',
+
+
+
 ];
 
 const gambleBtn = document.getElementById('gambleBtn');

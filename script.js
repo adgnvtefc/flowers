@@ -208,11 +208,16 @@ const memories = [
     { src: 'memories/day69.jpeg', header: 'Day 69', translation: 'tomorrow :)', notes: 'hehe this was the day before providence 2', aux: { src: 'memories/auxiliary3.jpeg', text: 'you sent me this snap right before you got on this plane and my heart melted' } },
     { src: 'memories/day70-73.png', header: 'Day 70 - 73', translation: 'PROVIDENCE 2', notes: 'STATUE PARK SHACK SHACK PINK PANTHER PROVIDENCE COAL FIRED PIZZA SO MANY GOOD MEMORIES AHHH' },
     { src: 'memories/day74.jpeg', header: 'Day 74', translation: 'Us, together', notes: 'I love your sketchbook and i love you. Somehow I hallucinat-remembered "hanmo and anushkas skeptchbook" but its not on the actual book so its on here now wheee' },
-    { src: 'memories/day75.jpeg', header: 'Day 75', translation: 'good morning, i love you', notes: 'all day, every day. more coming soon!!' }
+    { src: 'memories/day75.jpeg', header: 'Day 75', translation: 'good morning, i love you', notes: 'all day, every day. more coming soon!!' },
+    { src: 'memories/day76.jpeg', header: 'Day 76', translation: 'For you, super chicken 3000', notes: 'I honestly completely forgot about the context behind this. It looks it has coral. Maybe begg binc related? Idk, but i love you' },
+    { src: 'memories/day77.jpeg', header: 'Day 77', translation: 'My sun', notes: 'rudimentary, but i still say it to this day' },
+    { src: 'memories/day78.jpeg', header: 'Day 78', translation: 'i love you, a thousand a million', notes: 'a pink rose, in a style i havent done in a while, for you' },
+    { src: 'memories/day79.jpeg', header: 'Day 79', translation: 'i love you', notes: 'rock on babyyyyy' },
+    { src: 'memories/day80.jpeg', header: 'Day 80', translation: 'a lifetime of memories, a cup of wine', notes: 'enjoy the compeltely non-glassy wineglass hehe. ive def referenced this song before. but we have a lifetime of memories ahead of us hehe. more coming soon.' }
 ];
 
 // Where "i wanna see the new ones!!" jumps to — change this to the newest batch's photo.
-const NEW_MEMORIES_SRC = 'memories/day66.jpeg';
+const NEW_MEMORIES_SRC = 'memories/day76.jpeg';
 
 const memoryCard = document.getElementById('memoryCard');
 const memoryHeader = document.getElementById('memoryHeader');

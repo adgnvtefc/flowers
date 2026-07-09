@@ -213,11 +213,16 @@ const memories = [
     { src: 'memories/day77.jpeg', header: 'Day 77', translation: 'My sun', notes: 'rudimentary, but i still say it to this day' },
     { src: 'memories/day78.jpeg', header: 'Day 78', translation: 'i love you, a thousand a million', notes: 'a pink rose, in a style i havent done in a while, for you' },
     { src: 'memories/day79.jpeg', header: 'Day 79', translation: 'i love you', notes: 'rock on babyyyyy' },
-    { src: 'memories/day80.jpeg', header: 'Day 80', translation: 'a lifetime of memories, a cup of wine', notes: 'enjoy the compeltely non-glassy wineglass hehe. ive def referenced this song before. but we have a lifetime of memories ahead of us hehe. more coming soon.' }
+    { src: 'memories/day80.jpeg', header: 'Day 80', translation: 'a lifetime of memories, a cup of wine', notes: 'enjoy the compeltely non-glassy wineglass hehe. ive def referenced this song before. but we have a lifetime of memories ahead of us hehe. more coming soon.' },
+    { src: 'memories/day81.jpeg', header: 'Day 81', translation: 'i love you', notes: 'AVOCAT (i should sticker this)' },
+    { src: 'memories/day82.jpeg', header: 'Day 82', translation: 'there are waves and waves of people of all sorts and types in this world, but in a corner theres always two people standing back to back', notes: 'thats us. i have your back, always. the sunset is so pretty hehe. but you are prettier' },
+    { src: 'memories/day83.jpeg', header: 'Day 83', translation: 'i love you', notes: 'featuring cat and tank cat from battle cats wheee. This is oct 1st btw, so close to... hehehe' },
+    { src: 'memories/day84.jpeg', header: 'Day 84', translation: 'i love you', notes: 'youre so beautiful when youre asleep but even moreso when youre awake hehe' },
+    { src: 'memories/day85.jpeg', header: 'Day 85', translation: 'i love you', notes: 'wow sorry for the stupid repetitive chinese. but that is the truth of things. more flower for u sooon' }
 ];
 
 // Where "i wanna see the new ones!!" jumps to — change this to the newest batch's photo.
-const NEW_MEMORIES_SRC = 'memories/day76.jpeg';
+const NEW_MEMORIES_SRC = 'memories/day81.jpeg';
 
 const memoryCard = document.getElementById('memoryCard');
 const memoryHeader = document.getElementById('memoryHeader');

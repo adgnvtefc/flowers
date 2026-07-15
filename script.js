@@ -223,11 +223,17 @@ const memories = [
     { src: 'memories/day87.jpeg', header: 'Day 87', translation: 'I love you', notes: 'I LOVE THIS FERG STICKER DO U?? MUCH BETTER THAN THE LAST ONE' },
     { src: 'memories/day88.jpeg', header: 'Day 88', translation: 'I love you', notes: 'wow im so creative these days (love blast booooom mweh heh heh)' },
     { src: 'memories/day89.jpeg', header: 'Day 89', translation: 'I love you', notes: 'Hehe flower (tho lowk the arrangement looks kinda wack sorry abt that)' },
-    { src: 'memories/day90.jpeg', header: 'Day 90', translation: 'I love you', notes: 'Our last drawing before expedition mina 3. it is inspired by its much more well-formed cousin', aux: { src: 'memories/auxiliary4.jpeg', text: 'here hehe' } }
+    { src: 'memories/day90.jpeg', header: 'Day 90', translation: 'I love you', notes: 'Our last drawing before expedition mina 3. it is inspired by its much more well-formed cousin', aux: { src: 'memories/auxiliary4.jpeg', text: 'here hehe' } },
+    { src: 'memories/day91.jpeg', header: 'Day 91', translation: 'for my girlfriend', notes: 'RAHHH THE FIRST DAYYYY' },
+    { src: 'memories/day92.jpeg', header: 'Day 92', translation: 'i love you', notes: 'as more than a friend... AS MY GIRLFRIEND I LOVE YOUU' },
+    { src: 'memories/day93.jpeg', header: 'Day 93', translation: 'i love you very much', notes: 'i remember this ferg sticker hehe' },
+    { src: 'memories/day94pt1.jpeg', header: 'Day 94, pt 1', translation: 'you + me for a lifetime', notes: 'always. this is the day i watched a movie about a couple who carved their name into a tree so i did the same thing for us hehe' },
+    { src: 'memories/day94pt2.jpeg', header: 'Day 94, pt 2', translation: 'cat heart meow', notes: 'also the day i got my google team matching email hehe' },
+    { src: 'memories/day95.jpeg', header: 'Day 95', translation: 'you bring sunshine to my life', notes: 'away from the rain, away from all, you are my love' }
 ];
 
 // Where "i wanna see the new ones!!" jumps to — change this to the newest batch's photo.
-const NEW_MEMORIES_SRC = 'memories/day86.jpeg';
+const NEW_MEMORIES_SRC = 'memories/day91.jpeg';
 
 const memoryCard = document.getElementById('memoryCard');
 const memoryHeader = document.getElementById('memoryHeader');

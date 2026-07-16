@@ -229,11 +229,16 @@ const memories = [
     { src: 'memories/day93.jpeg', header: 'Day 93', translation: 'i love you very much', notes: 'i remember this ferg sticker hehe' },
     { src: 'memories/day94pt1.jpeg', header: 'Day 94, pt 1', translation: 'you + me for a lifetime', notes: 'always. this is the day i watched a movie about a couple who carved their name into a tree so i did the same thing for us hehe' },
     { src: 'memories/day94pt2.jpeg', header: 'Day 94, pt 2', translation: 'cat heart meow', notes: 'also the day i got my google team matching email hehe' },
-    { src: 'memories/day95.jpeg', header: 'Day 95', translation: 'you bring sunshine to my life', notes: 'away from the rain, away from all, you are my love' }
+    { src: 'memories/day95.jpeg', header: 'Day 95', translation: 'you bring sunshine to my life', notes: 'away from the rain, away from all, you are my love' },
+    { src: 'memories/day96.jpeg', header: 'Day 96', translation: 'sending you my love', notes: 'can you feel it?' },
+    { src: 'memories/day97.jpeg', header: 'Day 97', translation: 'hoping we never grow old', notes: 'for our one week... a memory, a day, forever, i love you so much' },
+    { src: 'memories/day98.jpeg', header: 'Day 98', translation: 'i dont deserve you', notes: 'still dont, so thank you for staying and dealing with this' },
+    { src: 'memories/day99.jpeg', header: 'Day 99', translation: 'i love you', notes: 'if i can transform into a cat ill bring you flowers every day every night... or i can do that without being a cat hehe' },
+    { src: 'memories/day100.jpeg', header: 'Day 100', translation: 'i love you', notes: '100 days of snap drawings!!!!! and infinite more to go. love how u can see how the art and stuff evolved (or didnt) through. were a bit over 365 as of today. i love you so much' }
 ];
 
 // Where "i wanna see the new ones!!" jumps to — change this to the newest batch's photo.
-const NEW_MEMORIES_SRC = 'memories/day91.jpeg';
+const NEW_MEMORIES_SRC = 'memories/day96.jpeg';
 
 const memoryCard = document.getElementById('memoryCard');
 const memoryHeader = document.getElementById('memoryHeader');
@@ -279,6 +284,7 @@ function showMemory(i) {
 }
 
 document.getElementById('memoryNextBtn').addEventListener('click', () => showMemory(memoryIndex + 1));
+document.getElementById('memoryPrevBtn').addEventListener('click', () => showMemory(memoryIndex - 1));
 
 document.getElementById('jumpNewBtn').addEventListener('click', () => {
     const i = memories.findIndex(m => m.src === NEW_MEMORIES_SRC);
@@ -557,6 +563,149 @@ document.getElementById('memoryThreadBtn').addEventListener('click', openThread)
 document.getElementById('threadModalClose').addEventListener('click', closeThread);
 threadModal.addEventListener('click', (e) => { if (e.target === threadModal) closeThread(); });
 document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && threadModal.classList.contains('open')) closeThread(); });
+
+// --- Recent notes overview (page 6, "recent notes" button) -----------------
+// A read-only, newest-first list of comment+reply pairs across every memory
+// from the last RECENT_COMMENTS_DAYS days, so she doesn't have to click into
+// each day one by one to check for a reply. Gated by the same session key as
+// the per-memory thread above; only the 'read' role can see it.
+const RECENT_COMMENTS_DAYS = 7; // how far back "recent notes" looks
+
+const recentModal = document.getElementById('recentModal');
+const recentUnlock = document.getElementById('recentUnlock');
+const recentList = document.getElementById('recentList');
+const recentKeyInput = document.getElementById('recentKeyInput');
+const recentUnlockBtn = document.getElementById('recentUnlockBtn');
+const recentUnlockStatus = document.getElementById('recentUnlockStatus');
+
+function showRecentUnlock() {
+    recentUnlock.style.display = '';
+    recentList.style.display = 'none';
+    recentUnlockStatus.textContent = '';
+    recentUnlockStatus.classList.remove('error');
+    recentKeyInput.value = '';
+}
+
+function showRecentList() {
+    recentUnlock.style.display = 'none';
+    recentList.style.display = '';
+}
+
+function showRecentForbidden() {
+    showRecentList();
+    recentList.innerHTML = '<p class="thread-empty">this lil corner is just for her hehe</p>';
+}
+
+function openRecent() {
+    recentModal.classList.add('open');
+    if (!getThreadKey()) {
+        showRecentUnlock();
+        recentKeyInput.focus();
+    } else if (getThreadRole() === 'read') {
+        showRecentList();
+        loadRecent();
+    } else {
+        showRecentForbidden();
+    }
+}
+
+function closeRecent() {
+    recentModal.classList.remove('open');
+}
+
+async function loadRecent() {
+    recentList.innerHTML = '<p class="thread-empty">loading…</p>';
+    try {
+        const rows = await rpc('get_recent_comments', { p_key: getThreadKey(), p_days: RECENT_COMMENTS_DAYS });
+        renderRecent(rows || []);
+    } catch (err) {
+        // Stored key is bad/expired — drop it and ask again.
+        clearThreadKey();
+        showRecentUnlock();
+        recentUnlockStatus.classList.add('error');
+        recentUnlockStatus.textContent = 'hmm, that key stopped working';
+    }
+}
+
+function renderRecent(rows) {
+    recentList.innerHTML = '';
+    if (!rows.length) {
+        const p = document.createElement('p');
+        p.className = 'thread-empty';
+        p.textContent = `nothing in the last ${RECENT_COMMENTS_DAYS} days`;
+        recentList.appendChild(p);
+        return;
+    }
+    rows.forEach(row => {
+        const item = document.createElement('div');
+        item.className = 'recent-item';
+
+        const header = document.createElement('div');
+        header.className = 'recent-item-header';
+        header.textContent = row.memory + ' →';
+        item.appendChild(header);
+
+        // Same left/right convention as the per-memory thread's 'read' role:
+        // her own comment on the right, the reply (or lack of one) on the left.
+        const comment = document.createElement('div');
+        comment.className = 'thread-msg you';
+        comment.textContent = row.comment;
+        item.appendChild(comment);
+
+        const reply = document.createElement('div');
+        reply.className = row.reply ? 'thread-msg her' : 'thread-msg her pending';
+        reply.textContent = row.reply || 'no reply yet';
+        item.appendChild(reply);
+
+        item.addEventListener('click', () => jumpToMemoryThread(row.memory));
+        recentList.appendChild(item);
+    });
+}
+
+// Closes this overview and drops straight into that day's full thread.
+function jumpToMemoryThread(header) {
+    const i = memories.findIndex(m => m.header === header);
+    closeRecent();
+    if (i === -1) return;
+    goToPage(indexOfPage('page6'));
+    showMemory(i);
+    openThread();
+}
+
+recentUnlockBtn.addEventListener('click', async () => {
+    const key = recentKeyInput.value.trim();
+    if (!key) {
+        recentUnlockStatus.classList.remove('error');
+        recentUnlockStatus.textContent = 'type the key first 🔑';
+        return;
+    }
+    recentUnlockBtn.disabled = true;
+    recentUnlockStatus.classList.remove('error');
+    recentUnlockStatus.textContent = 'checking…';
+    try {
+        const role = await rpc('key_role', { p_key: key });
+        if (role !== 'reply' && role !== 'read') throw new Error('bad key');
+        sessionStorage.setItem(THREAD_KEY_STORE, key);
+        sessionStorage.setItem(THREAD_ROLE_STORE, role);
+        if (role === 'read') {
+            showRecentList();
+            loadRecent();
+        } else {
+            showRecentForbidden();
+        }
+    } catch (err) {
+        recentUnlockStatus.classList.add('error');
+        recentUnlockStatus.textContent = 'nope, wrong key';
+    } finally {
+        recentUnlockBtn.disabled = false;
+    }
+});
+
+recentKeyInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') recentUnlockBtn.click(); });
+document.getElementById('recentCommentsBtn').addEventListener('click', openRecent);
+document.getElementById('recentModalClose').addEventListener('click', closeRecent);
+recentModal.addEventListener('click', (e) => { if (e.target === recentModal) closeRecent(); });
+document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && recentModal.classList.contains('open')) closeRecent(); });
 
 // Auxiliary screenshot popup
 const auxModal = document.getElementById('auxModal');

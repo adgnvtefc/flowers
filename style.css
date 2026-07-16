@@ -551,6 +551,12 @@ body {
     transform: scale(0.97);
 }
 
+.memory-nav {
+    display: flex;
+    gap: 1rem;
+    flex-shrink: 0;
+}
+
 /* Gambling (page 7) */
 .gamble-card {
     width: 100%;
@@ -655,6 +661,14 @@ body {
 
 .jump-new-btn:active {
     transform: scale(0.97);
+}
+
+/* Row holding the "new ones" jump button alongside "recent notes" on page 6 */
+.page6-topbar {
+    display: flex;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 
 /* Page 4: keep the button just below the card on every screen size. Cap the
@@ -930,6 +944,38 @@ body {
     text-align: center;
     font-weight: 300;
     color: rgba(248, 250, 252, 0.6);
+}
+
+/* Recent-notes overview: one clickable card per memory with a recent comment. */
+.recent-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    cursor: pointer;
+}
+
+.recent-item:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+
+.recent-item-header {
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #fbcfe8;
+    transition: color 0.2s ease;
+}
+
+.recent-item:hover .recent-item-header {
+    color: #f472b6;
+}
+
+.thread-msg.pending {
+    opacity: 0.55;
+    font-style: italic;
 }
 
 /* Clickable note that opens an auxiliary screenshot */

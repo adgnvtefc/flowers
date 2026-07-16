@@ -10,7 +10,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;600&family=Fira+Code:wght@400;600&display=swap"
         rel="stylesheet">
     <!-- Bump ?v= whenever you change style.css so browsers re-fetch it. -->
-    <link rel="stylesheet" href="style.css?v=6">
+    <link rel="stylesheet" href="style.css?v=8">
 </head>
 
 <body>
@@ -126,7 +126,10 @@
 
     <div id="page6" class="page">
         <div class="glass-container">
-            <button class="jump-new-btn" id="jumpNewBtn">i wanna see the new ones!!</button>
+            <div class="page6-topbar">
+                <button class="jump-new-btn" id="jumpNewBtn">i wanna see the new ones!!</button>
+                <button class="jump-new-btn" id="recentCommentsBtn">📬 recent notes</button>
+            </div>
             <h1 class="greeting">take a walk down memory lane?</h1>
             <div class="memory-card" id="memoryCard">
                 <h2 class="memory-header" id="memoryHeader"></h2>
@@ -138,7 +141,7 @@
                 </div>
                 <div class="memory-comment">
                     <textarea id="memoryCommentInput" class="memory-comment-input" rows="2" maxlength="2000"
-                        placeholder="leave a little comment (is private to me... for now hehehe but i wanna make it so that u can see em too)"></textarea>
+                        placeholder="leave a little comment"></textarea>
                     <div class="memory-comment-row">
                         <button id="memoryCommentSend" class="memory-comment-send">⁀જ➣</button>
                         <span id="memoryCommentStatus" class="memory-comment-status" role="status"></span>
@@ -146,7 +149,10 @@
                     <button id="memoryThreadBtn" class="memory-thread-btn" type="button">COMMENTS SEE EM NOW</button>
                 </div>
             </div>
-            <button class="randomize-btn" id="memoryNextBtn">next &rarr;</button>
+            <div class="memory-nav">
+                <button class="randomize-btn" id="memoryPrevBtn">&larr; back</button>
+                <button class="randomize-btn" id="memoryNextBtn">next &rarr;</button>
+            </div>
         </div>
     </div>
 
@@ -240,10 +246,31 @@
         </div>
     </div>
 
+    <!-- Overview of the newest comment threads across every memory, gated the same
+         way as the per-memory thread above (same passphrase, same session key). -->
+    <div class="text-modal thread-modal" id="recentModal">
+        <div class="text-modal-content thread-modal-content">
+            <button class="text-modal-close" id="recentModalClose" aria-label="close">&times;</button>
+            <h2 class="thread-title">recent notes</h2>
+
+            <div class="thread-unlock" id="recentUnlock">
+                <p class="thread-unlock-label">hehe</p>
+                <input type="password" id="recentKeyInput" class="memory-comment-input thread-key-input"
+                    autocomplete="off" placeholder="for u">
+                <div class="memory-comment-row">
+                    <button id="recentUnlockBtn" class="memory-comment-send">unlock</button>
+                    <span id="recentUnlockStatus" class="memory-comment-status" role="status"></span>
+                </div>
+            </div>
+
+            <div class="thread-body recent-list" id="recentList" style="display:none;"></div>
+        </div>
+    </div>
+
     <!-- Bump ?v= whenever you change patch-notes.js or script.js so browsers
          (yours AND hers) re-fetch instead of serving a stale cached copy. -->
     <script src="patch-notes.js?v=2"></script>
-    <script src="script.js?v=14"></script>
+    <script src="script.js?v=16"></script>
 </body>
 
 </html>

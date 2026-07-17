@@ -234,11 +234,14 @@ const memories = [
     { src: 'memories/day97.jpeg', header: 'Day 97', translation: 'hoping we never grow old', notes: 'for our one week... a memory, a day, forever, i love you so much' },
     { src: 'memories/day98.jpeg', header: 'Day 98', translation: 'i dont deserve you', notes: 'still dont, so thank you for staying and dealing with this' },
     { src: 'memories/day99.jpeg', header: 'Day 99', translation: 'i love you', notes: 'if i can transform into a cat ill bring you flowers every day every night... or i can do that without being a cat hehe' },
-    { src: 'memories/day100.jpeg', header: 'Day 100', translation: 'i love you', notes: '100 days of snap drawings!!!!! and infinite more to go. love how u can see how the art and stuff evolved (or didnt) through. were a bit over 365 as of today. i love you so much' }
+    { src: 'memories/day100.jpeg', header: 'Day 100', translation: 'i love you', notes: '100 days of snap drawings!!!!! and infinite more to go. love how u can see how the art and stuff evolved (or didnt) through. were a bit over 365 as of today. i love you so much' },
+    { src: 'memories/day101-103.png', header: 'Day 101 - 103', translation: 'SURPRISE OCTOBER TRIP', notes: 'i love you so so much' },
+    { src: 'memories/day104.jpeg', header: 'Day 104', translation: 'our lives, like water, inevitably flow towards each other', notes: 'until we are together, and after that it moves ever onwards, as one' },
+    { src: 'memories/day105.jpeg', header: 'Day 105', translation: 'i love you', notes: 'because if i was a tiny hooman living among flowers id climb a flower to show you the flower i got u, because you deserve it and so much more' }
 ];
 
 // Where "i wanna see the new ones!!" jumps to — change this to the newest batch's photo.
-const NEW_MEMORIES_SRC = 'memories/day96.jpeg';
+const NEW_MEMORIES_SRC = 'memories/day101-103.png';
 
 const memoryCard = document.getElementById('memoryCard');
 const memoryHeader = document.getElementById('memoryHeader');

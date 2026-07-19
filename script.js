@@ -237,11 +237,16 @@ const memories = [
     { src: 'memories/day100.jpeg', header: 'Day 100', translation: 'i love you', notes: '100 days of snap drawings!!!!! and infinite more to go. love how u can see how the art and stuff evolved (or didnt) through. were a bit over 365 as of today. i love you so much' },
     { src: 'memories/day101-103.png', header: 'Day 101 - 103', translation: 'SURPRISE OCTOBER TRIP', notes: 'i love you so so much' },
     { src: 'memories/day104.jpeg', header: 'Day 104', translation: 'our lives, like water, inevitably flow towards each other', notes: 'until we are together, and after that it moves ever onwards, as one' },
-    { src: 'memories/day105.jpeg', header: 'Day 105', translation: 'i love you', notes: 'because if i was a tiny hooman living among flowers id climb a flower to show you the flower i got u, because you deserve it and so much more' }
+    { src: 'memories/day105.jpeg', header: 'Day 105', translation: 'i love you', notes: 'because if i was a tiny hooman living among flowers id climb a flower to show you the flower i got u, because you deserve it and so much more' },
+    { src: 'memories/day106.jpeg', header: 'Day 106', translation: 'i love you', notes: 'i have this sticker too. us dancing upon a flower wheee' },
+    { src: 'memories/day107.jpeg', header: 'Day 107', translation: 'come home', notes: 'this was the midpoint between our two trips, and i miss you so much' },
+    { src: 'memories/day108.jpeg', header: 'Day 108', translation: 'no sorry', notes: 'inspired by the roof (not ceiling!! i got it right this time) on the building i drew yesterday lmao' },
+    { src: 'memories/day109.jpeg', header: 'Day 109', translation: 'nineteen days', notes: 'since oct 12, this was the night you went home and your flight got really delayed and we watched zootopia in boston hehe' },
+    { src: 'memories/day110.jpeg', header: 'Day 110', translation: 'the seed we planted, we watch it grow. life is long, but ill spend it together with you', notes: 'yes, i want to live by those words i drew into the tree' }
 ];
 
 // Where "i wanna see the new ones!!" jumps to — change this to the newest batch's photo.
-const NEW_MEMORIES_SRC = 'memories/day101-103.png';
+const NEW_MEMORIES_SRC = 'memories/day106.jpeg';
 
 const memoryCard = document.getElementById('memoryCard');
 const memoryHeader = document.getElementById('memoryHeader');

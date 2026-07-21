@@ -242,11 +242,17 @@ const memories = [
     { src: 'memories/day107.jpeg', header: 'Day 107', translation: 'come home', notes: 'this was the midpoint between our two trips, and i miss you so much' },
     { src: 'memories/day108.jpeg', header: 'Day 108', translation: 'no sorry', notes: 'inspired by the roof (not ceiling!! i got it right this time) on the building i drew yesterday lmao' },
     { src: 'memories/day109.jpeg', header: 'Day 109', translation: 'nineteen days', notes: 'since oct 12, this was the night you went home and your flight got really delayed and we watched zootopia in boston hehe' },
-    { src: 'memories/day110.jpeg', header: 'Day 110', translation: 'the seed we planted, we watch it grow. life is long, but ill spend it together with you', notes: 'yes, i want to live by those words i drew into the tree' }
+    { src: 'memories/day110.jpeg', header: 'Day 110', translation: 'the seed we planted, we watch it grow. life is long, but ill spend it together with you', notes: 'yes, i want to live by those words i drew into the tree' },
+    { src: 'memories/day111.jpeg', header: 'Day 111', translation: 'i love you', notes: 'human sized flower for uuu' },
+    { src: 'memories/day112.jpeg', header: 'Day 112', translation: '22 days, i love you', notes: 'we are at about 14 times that number now and i love you more than ever', aux: { src: 'memories/auxiliary5.jpeg', text: 'this is the day of this classic' } },
+    { src: 'memories/day113.jpeg', header: 'Day 113', translation: 'water flows downwards, the rest of our lives we walk together', notes: 'as is natural for us, as for water' },
+    { src: 'memories/day114.jpeg', header: 'Day 114', translation: 'love, the fire that never extinguishes', notes: 'BURN AND ARSON RAHHH' },
+    { src: 'memories/day115-120.png', header: 'Day 115 - 120', translation: 'PITTSBURGH', notes: 'OUR FIRST BIG TRIP, SM FUN, BEAN, HENRY PARTY, HOME POT POT, WFH, STUDENT OF THE YEAR, CHILL MOVIES, LIVING TOGETHER I LOVE YOU' },
+    { src: 'memories/day120pt2.jpeg', header: 'Day 120, pt 2', translation: '30 Days', notes: 'the day before our one month. Can you believe were past 9 alr? i loev you so much' }
 ];
 
 // Where "i wanna see the new ones!!" jumps to — change this to the newest batch's photo.
-const NEW_MEMORIES_SRC = 'memories/day106.jpeg';
+const NEW_MEMORIES_SRC = 'memories/day111.jpeg';
 
 const memoryCard = document.getElementById('memoryCard');
 const memoryHeader = document.getElementById('memoryHeader');

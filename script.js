@@ -248,11 +248,16 @@ const memories = [
     { src: 'memories/day113.jpeg', header: 'Day 113', translation: 'water flows downwards, the rest of our lives we walk together', notes: 'as is natural for us, as for water' },
     { src: 'memories/day114.jpeg', header: 'Day 114', translation: 'love, the fire that never extinguishes', notes: 'BURN AND ARSON RAHHH' },
     { src: 'memories/day115-120.png', header: 'Day 115 - 120', translation: 'PITTSBURGH', notes: 'OUR FIRST BIG TRIP, SM FUN, BEAN, HENRY PARTY, HOME POT POT, WFH, STUDENT OF THE YEAR, CHILL MOVIES, LIVING TOGETHER I LOVE YOU' },
-    { src: 'memories/day120pt2.jpeg', header: 'Day 120, pt 2', translation: '30 Days', notes: 'the day before our one month. Can you believe were past 9 alr? i loev you so much' }
+    { src: 'memories/day120pt2.jpeg', header: 'Day 120, pt 2', translation: '30 Days', notes: 'the day before our one month. Can you believe were past 9 alr? i loev you so much' },
+    { src: 'memories/day121.jpeg', header: 'Day 121', translation: 'home', notes: 'because with you is home. Happy one month!!! I love you so much. And wow my windows look surprisingly window-y lmao' },
+    { src: 'memories/day122.jpeg', header: 'Day 122', translation: 'let me tell you a story', notes: 'the first night you had trouble sleeping and i put on a ventriloquist show wiht marshmallow and dinner hehe. you look so beautiful when you sleep (and alllll the time hehe)' },
+    { src: 'memories/day123.jpeg', header: 'Day 123', translation: 'i love you', notes: 'ANOTHER GIANT FLOWER RAHHH' },
+    { src: 'memories/day124.jpeg', header: 'Day 124', translation: 'love you to the sky', notes: 'and back and to the sky and back until we traverse greater than the size of the known universe and then factorial that and thats less than 1 percent of how much i love you' },
+    { src: 'memories/day125.jpeg', header: 'Day 125', translation: 'you dont go, i look back. you dont chase, i come back. i dont know if my love for you is good or bad. do i really love you or my own shadow? do you still believe, i love you but why do i always hurt you, i want to change', notes: 'im so sorry, i love you, but im so sorry.', aux: { src: 'memories/auxiliary6.jpeg', text: 'on the brighter side, dinosaur rawrrrr' } }
 ];
 
 // Where "i wanna see the new ones!!" jumps to — change this to the newest batch's photo.
-const NEW_MEMORIES_SRC = 'memories/day111.jpeg';
+const NEW_MEMORIES_SRC = 'memories/day121.jpeg';
 
 const memoryCard = document.getElementById('memoryCard');
 const memoryHeader = document.getElementById('memoryHeader');

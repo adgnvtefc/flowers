@@ -253,11 +253,16 @@ const memories = [
     { src: 'memories/day122.jpeg', header: 'Day 122', translation: 'let me tell you a story', notes: 'the first night you had trouble sleeping and i put on a ventriloquist show wiht marshmallow and dinner hehe. you look so beautiful when you sleep (and alllll the time hehe)' },
     { src: 'memories/day123.jpeg', header: 'Day 123', translation: 'i love you', notes: 'ANOTHER GIANT FLOWER RAHHH' },
     { src: 'memories/day124.jpeg', header: 'Day 124', translation: 'love you to the sky', notes: 'and back and to the sky and back until we traverse greater than the size of the known universe and then factorial that and thats less than 1 percent of how much i love you' },
-    { src: 'memories/day125.jpeg', header: 'Day 125', translation: 'you dont go, i look back. you dont chase, i come back. i dont know if my love for you is good or bad. do i really love you or my own shadow? do you still believe, i love you but why do i always hurt you, i want to change', notes: 'im so sorry, i love you, but im so sorry.', aux: { src: 'memories/auxiliary6.jpeg', text: 'on the brighter side, dinosaur rawrrrr' } }
+    { src: 'memories/day125.jpeg', header: 'Day 125', translation: 'you dont go, i look back. you dont chase, i come back. i dont know if my love for you is good or bad. do i really love you or my own shadow? do you still believe, i love you but why do i always hurt you, i want to change', notes: 'im so sorry, i love you, but im so sorry.', aux: { src: 'memories/auxiliary6.jpeg', text: 'on the brighter side, dinosaur rawrrrr' } },
+    { src: 'memories/day126.jpeg', header: 'Day 126', translation: 'day by day', notes: 'ahhh the classic tree swing makes a return lmaoo' },
+    { src: 'memories/day127.jpeg', header: 'Day 127', translation: 'i love you', notes: 'hehe i stickered these flowers but never use them cuz my first attempt to color them make them look like... lollipops lmao' },
+    { src: 'memories/day128.jpeg', header: 'Day 128', translation: 'i love you', notes: 'arriving on a cloud to flower u up... meow meow meow hehe' },
+    { src: 'memories/day129.jpeg', header: 'Day 129', translation: 'together for a lifetime', notes: 'hehe. remember when we named and i first drew casserole, when i first got to pittsburgh? so long ago. but i love you so so much. ' },
+    { src: 'memories/day130.jpeg', header: 'Day 130', translation: 'i love you', notes: 'a much better attempt to color a flower. honestly. i dont even remember how i did it lol' }
 ];
 
 // Where "i wanna see the new ones!!" jumps to — change this to the newest batch's photo.
-const NEW_MEMORIES_SRC = 'memories/day121.jpeg';
+const NEW_MEMORIES_SRC = 'memories/day126.jpeg';
 
 const memoryCard = document.getElementById('memoryCard');
 const memoryHeader = document.getElementById('memoryHeader');

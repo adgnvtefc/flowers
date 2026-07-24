@@ -258,11 +258,16 @@ const memories = [
     { src: 'memories/day127.jpeg', header: 'Day 127', translation: 'i love you', notes: 'hehe i stickered these flowers but never use them cuz my first attempt to color them make them look like... lollipops lmao' },
     { src: 'memories/day128.jpeg', header: 'Day 128', translation: 'i love you', notes: 'arriving on a cloud to flower u up... meow meow meow hehe' },
     { src: 'memories/day129.jpeg', header: 'Day 129', translation: 'together for a lifetime', notes: 'hehe. remember when we named and i first drew casserole, when i first got to pittsburgh? so long ago. but i love you so so much. ' },
-    { src: 'memories/day130.jpeg', header: 'Day 130', translation: 'i love you', notes: 'a much better attempt to color a flower. honestly. i dont even remember how i did it lol' }
+    { src: 'memories/day130.jpeg', header: 'Day 130', translation: 'i love you', notes: 'a much better attempt to color a flower. honestly. i dont even remember how i did it lol' },
+    { src: 'memories/day131.jpeg', header: 'Day 131', translation: 'im sorry', notes: 'i forgot what i did on that particular day, but im still regretful of hurting you' },
+    { src: 'memories/day132.jpeg', header: 'Day 132', translation: 'a world of love', notes: 'served straight into your life, by me, i love you' },
+    { src: 'memories/day133.jpeg', header: 'Day 133', translation: 'i love you', notes: 'forever and infinity' },
+    { src: 'memories/day134.jpeg', header: 'Day 134', translation: '???', notes: 'i like this one but where is the chingalingaling wtf me' },
+    { src: 'memories/day135.jpeg', header: 'Day 135', translation: 'thank you', notes: 'giving thanks on thanksgiving to the one who deserves the mostest thanks' }
 ];
 
 // Where "i wanna see the new ones!!" jumps to — change this to the newest batch's photo.
-const NEW_MEMORIES_SRC = 'memories/day126.jpeg';
+const NEW_MEMORIES_SRC = 'memories/day131.jpeg';
 
 const memoryCard = document.getElementById('memoryCard');
 const memoryHeader = document.getElementById('memoryHeader');

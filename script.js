@@ -263,11 +263,18 @@ const memories = [
     { src: 'memories/day132.jpeg', header: 'Day 132', translation: 'a world of love', notes: 'served straight into your life, by me, i love you' },
     { src: 'memories/day133.jpeg', header: 'Day 133', translation: 'i love you', notes: 'forever and infinity' },
     { src: 'memories/day134.jpeg', header: 'Day 134', translation: '???', notes: 'i like this one but where is the chingalingaling wtf me' },
-    { src: 'memories/day135.jpeg', header: 'Day 135', translation: 'thank you', notes: 'giving thanks on thanksgiving to the one who deserves the mostest thanks' }
+    { src: 'memories/day135pt1.jpeg', header: 'Day 135, pt 1', translation: 'thank you', notes: 'giving thanks on thanksgiving to the one who deserves the mostest thanks' },
+    { src: 'memories/day135pt2.jpeg', header: 'Day 135, pt 2', translation: 'for choosing to spend a lifetime with me', notes: 'oops i forgot this one yesterday but for u right here i love you' },
+    { src: 'memories/day136.jpeg', header: 'Day 136', translation: 'lets spend a lifetime like this', notes: 'nuzzle up, hold close, cuddle, embrace, and a million more words to describe that feeling' },
+    { src: 'memories/day137pt1.jpeg', header: 'Day 137, pt 1', translation: 'for a lifetime', notes: 'i think these are my most elabroate butterflies and flowers ever. wow that rose kinda good ngl where is that now' },
+    { src: 'memories/day137pt2.jpeg', header: 'Day 137, pt 2', translation: 'even though i might not always be able to be physically next to you, my heart is forever yours', notes: 'you belong with me, i belong with you, and together we are the bets we can ever be' },
+    { src: 'memories/day138.jpeg', header: 'Day 138', translation: 'i love you', notes: 'red and pink flower hehe' },
+    { src: 'memories/day139.jpeg', header: 'Day 139', translation: 'i love you', notes: 'WOW those are some clean leaves on that bouquet (but not as clean and crisp as my love for you)' },
+    { src: 'memories/day140.jpeg', header: 'Day 140', translation: 'lets fly together! lets spend a lifetime together', notes: 'you will soar, we will soar, like a bird (but were not birds), through the skies, free from anyone and everything but ourselves and our love for each other.' }
 ];
 
 // Where "i wanna see the new ones!!" jumps to — change this to the newest batch's photo.
-const NEW_MEMORIES_SRC = 'memories/day131.jpeg';
+const NEW_MEMORIES_SRC = 'memories/day135pt2.jpeg';
 
 const memoryCard = document.getElementById('memoryCard');
 const memoryHeader = document.getElementById('memoryHeader');

@@ -270,11 +270,18 @@ const memories = [
     { src: 'memories/day137pt2.jpeg', header: 'Day 137, pt 2', translation: 'even though i might not always be able to be physically next to you, my heart is forever yours', notes: 'you belong with me, i belong with you, and together we are the bets we can ever be' },
     { src: 'memories/day138.jpeg', header: 'Day 138', translation: 'i love you', notes: 'red and pink flower hehe' },
     { src: 'memories/day139.jpeg', header: 'Day 139', translation: 'i love you', notes: 'WOW those are some clean leaves on that bouquet (but not as clean and crisp as my love for you)' },
-    { src: 'memories/day140.jpeg', header: 'Day 140', translation: 'lets fly together! lets spend a lifetime together', notes: 'you will soar, we will soar, like a bird (but were not birds), through the skies, free from anyone and everything but ourselves and our love for each other.' }
+    { src: 'memories/day140.jpeg', header: 'Day 140', translation: 'lets fly together! lets spend a lifetime together', notes: 'you will soar, we will soar, like a bird (but were not birds), through the skies, free from anyone and everything but ourselves and our love for each other.' },
+    { src: 'memories/day141.jpeg', header: 'Day 141', translation: 'even if its raining, ill be here with you', notes: 'through the good days, and the bad' },
+    { src: 'memories/day142pt1.jpeg', header: 'Day 142, pt 1', translation: 'the world is this big, but i still met you. you are my most precious treasure', notes: 'and that has never changed. fun fact, this drawing was inspired by an album cover of a japanese song i used to listen to lmao' },
+    { src: 'memories/day142pt2.jpeg', header: 'Day 142, pt 2', translation: 'shame on me for being blind and not knowing the meaning of love', notes: 'im sorry, i still have so much left to learn' },
+    { src: 'memories/day142pt3.jpeg', header: 'Day 142, pt 3', translation: 'five sunflowers for you. i love you', notes: 'forever and infinity. also, red text looks ominous on that blue background lmaoo' },
+    { src: 'memories/day143.jpeg', header: 'Day 143', translation: 'i love you', notes: 'i think u sent me a picture of FROGERT this day hehe fergggg' },
+    { src: 'memories/day144.jpeg', header: 'Day 144', translation: 'i love you. never forget, we all love you. [unintelligible chinese]', notes: 'no, i genuinely have no idea what it says. it reads like a lifetime of cars. obviously i did not write a lifetime of cars. but wtf did i write???' },
+    { src: 'memories/day145.jpeg', header: 'Day 145', translation: 'i love you for a lifetime', notes: 'i spoke wrong. i meant A HUNDRED MILLION TRILLION RAHHH' }
 ];
 
 // Where "i wanna see the new ones!!" jumps to — change this to the newest batch's photo.
-const NEW_MEMORIES_SRC = 'memories/day135pt2.jpeg';
+const NEW_MEMORIES_SRC = 'memories/day141.jpeg';
 
 const memoryCard = document.getElementById('memoryCard');
 const memoryHeader = document.getElementById('memoryHeader');

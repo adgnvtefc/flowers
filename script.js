@@ -277,11 +277,21 @@ const memories = [
     { src: 'memories/day142pt3.jpeg', header: 'Day 142, pt 3', translation: 'five sunflowers for you. i love you', notes: 'forever and infinity. also, red text looks ominous on that blue background lmaoo' },
     { src: 'memories/day143.jpeg', header: 'Day 143', translation: 'i love you', notes: 'i think u sent me a picture of FROGERT this day hehe fergggg' },
     { src: 'memories/day144.jpeg', header: 'Day 144', translation: 'i love you. never forget, we all love you. [unintelligible chinese]', notes: 'no, i genuinely have no idea what it says. it reads like a lifetime of cars. obviously i did not write a lifetime of cars. but wtf did i write???' },
-    { src: 'memories/day145.jpeg', header: 'Day 145', translation: 'i love you for a lifetime', notes: 'i spoke wrong. i meant A HUNDRED MILLION TRILLION RAHHH' }
+    { src: 'memories/day145.jpeg', header: 'Day 145', translation: 'i love you for a lifetime', notes: 'i spoke wrong. i meant A HUNDRED MILLION TRILLION RAHHH' },
+    { src: 'memories/day146.jpeg', header: 'Day 146', translation: 'one day, every day will be like this', notes: 'and it will be so so so sweet' },
+    { src: 'memories/day147.jpeg', header: 'Day 147', translation: 'lets grow together', notes: 'water the plant that is our love so that we can bask in its glory' },
+    { src: 'memories/day148-149.png', header: 'Day 148 - 149', translation: 'PROVIDENCE PROVIDENCE PROVIDENCE', notes: 'we went to the vegan asian place and chilled and booked seats for your flights and had so so much fun i love you' },
+    { src: 'memories/day150.jpeg', header: 'Day 150', translation: 'two months now, when i see you, you still shine brightly, illuminating my everyday. i love you.', notes: 'my brightest star' },
+    { src: 'memories/day151.jpeg', header: 'Day 151', translation: 'no matter where, i love you for a lifetime', notes: 'near, far, wherever you are, always by my side' },
+    { src: 'memories/day152pt1.jpeg', header: 'Day 152, pt 1', translation: 'even in the desert, im yours', notes: 'why desert in particular? idk, but maybe i was feeling particularly desert-y that night. hehe death valley hehe.' },
+    { src: 'memories/day152pt2.jpeg', header: 'Day 152, pt 2', translation: 'home is you and i', notes: 'no matter where we go' },
+    { src: 'memories/day153.jpeg', header: 'Day 153', translation: 'nothing to translate', notes: 'except translating art into love. i love you so much.' },
+    { src: 'memories/day154.jpeg', header: 'Day 154', translation: 'yours, i love you', notes: 'me, my heart, and i -- all yours' },
+    { src: 'memories/day155.jpeg', header: 'Day 155', translation: 'youre mine', notes: 'a nice complement to day 154. also, these are entering india/china time zones -- not too sure im getting the days 100% correct, might be off by 1 but i love you so much' }
 ];
 
 // Where "i wanna see the new ones!!" jumps to — change this to the newest batch's photo.
-const NEW_MEMORIES_SRC = 'memories/day141.jpeg';
+const NEW_MEMORIES_SRC = 'memories/day146.jpeg';
 
 const memoryCard = document.getElementById('memoryCard');
 const memoryHeader = document.getElementById('memoryHeader');

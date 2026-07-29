@@ -287,11 +287,16 @@ const memories = [
     { src: 'memories/day152pt2.jpeg', header: 'Day 152, pt 2', translation: 'home is you and i', notes: 'no matter where we go' },
     { src: 'memories/day153.jpeg', header: 'Day 153', translation: 'nothing to translate', notes: 'except translating art into love. i love you so much.' },
     { src: 'memories/day154.jpeg', header: 'Day 154', translation: 'yours, i love you', notes: 'me, my heart, and i -- all yours' },
-    { src: 'memories/day155.jpeg', header: 'Day 155', translation: 'youre mine', notes: 'a nice complement to day 154. also, these are entering india/china time zones -- not too sure im getting the days 100% correct, might be off by 1 but i love you so much' }
+    { src: 'memories/day155.jpeg', header: 'Day 155', translation: 'youre mine', notes: 'a nice complement to day 154. also, these are entering india/china time zones -- not too sure im getting the days 100% correct, might be off by 1 but i love you so much' },
+    { src: 'memories/day156.jpeg', header: 'Day 156', translation: 'i love you', notes: 'frolic in fields together <3' },
+    { src: 'memories/day157.jpeg', header: 'Day 157', translation: 'us together', notes: 'this is the day you went to the cow village with the big well so i drew cow mooooo' },
+    { src: 'memories/day158.jpeg', header: 'Day 158', translation: 'i love you', notes: 'ooooh i havent pulled out that yellow flower design in a while' },
+    { src: 'memories/day159.jpeg', header: 'Day 159', translation: 'you', notes: 'my shining star' },
+    { src: 'memories/day160.jpeg', header: 'Day 160', translation: 'i love you', notes: 'background isnt black this time but wheeeee' }
 ];
 
 // Where "i wanna see the new ones!!" jumps to — change this to the newest batch's photo.
-const NEW_MEMORIES_SRC = 'memories/day146.jpeg';
+const NEW_MEMORIES_SRC = 'memories/day156.jpeg';
 
 const memoryCard = document.getElementById('memoryCard');
 const memoryHeader = document.getElementById('memoryHeader');

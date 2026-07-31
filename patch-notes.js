@@ -4,8 +4,15 @@
 // at its key. The newest note pops up when the site is opened (once per version,
 // so it isn't naggy); all of them stay here and are viewable under "older updates".
 const PATCH_NOTES = {
-    "latest": "v24",
+    "latest": "v25",
     "versions": {
+        "v25": {
+            "date": "July 31, 2026",
+            "title": "memo memo memo memmies!!",
+            "changes": [
+                "m"
+            ]
+        },
         "v24": {
             "date": "July 29, 2026",
             "title": "more memories!!",

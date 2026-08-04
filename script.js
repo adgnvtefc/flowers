@@ -297,11 +297,18 @@ const memories = [
     { src: 'memories/day162.jpeg', header: 'Day 162', translation: 'I love you', notes: 'featuring flower from said botanical garden hehe' },
     { src: 'memories/day163.jpeg', header: 'Day 163', translation: 'I love you', notes: 'wow that is some neat flower perspective. This was day I met up with cousin lol. I think you were with grandma and aunt these days? i forgot exactly where you were, but a few days after this pic is when grandma made the coconut desert thingies with yall' },
     { src: 'memories/day164.jpeg', header: 'Day 164', translation: 'i love you', notes: 'yeah the grandma thing was not a few days after it was literally this day. i cant wait to be with you again.' },
-    { src: 'memories/day165.jpeg', header: 'Day 165', translation: 'i love you', notes: 'wow my roses have gotten A LOT worse since then cuz wtf why does this actually have perspective. i have a perspective on you too... I LOVE YOU' }
+    { src: 'memories/day165.jpeg', header: 'Day 165', translation: 'i love you', notes: 'wow my roses have gotten A LOT worse since then cuz wtf why does this actually have perspective. i have a perspective on you too... I LOVE YOU' },
+    { src: 'memories/day166pt1.jpeg', header: 'Day 166, pt 1', translation: 'a flower for you', notes: 'floating on the wind from afar' },
+    { src: 'memories/day166pt2.jpeg', header: 'Day 166, pt 2', translation: 'love you fr', notes: 'fr fr fr, im sure sure sure' },
+    { src: 'memories/day166pt3.jpeg', header: 'Day 166, pt 3', translation: 'day by day, love you forever', notes: 'and ever and ever' },
+    { src: 'memories/day167.jpeg', header: 'Day 167', translation: 'i love you 1000 years', notes: 'this was on new years eve, why i wrote 2026 i got NO IDEA lmao' },
+    { src: 'memories/day168.jpeg', header: 'Day 168', translation: 'happy 2026', notes: 'OUR FIRST NEW YEARS AS A COUPLE AHHHH I LOVE YOU. this was the night u went dancing with teh fam and i saw the sunrise that did not rise cuz of all the fog LMAO' },
+    { src: 'memories/day169.jpeg', header: 'Day 169', translation: 'i love you', notes: 'flower for uuu' },
+    { src: 'memories/day170.jpeg', header: 'Day 170', translation: '1314', notes: 'in case you forgot, in chinese, its a homophone (not to be confused with homophobe) for for a lifetime. because i love you and we will be together for a lifetime.' }
 ];
 
 // Where "i wanna see the new ones!!" jumps to — change this to the newest batch's photo.
-const NEW_MEMORIES_SRC = 'memories/day161.jpeg';
+const NEW_MEMORIES_SRC = 'memories/day166pt1.jpeg';
 
 const memoryCard = document.getElementById('memoryCard');
 const memoryHeader = document.getElementById('memoryHeader');

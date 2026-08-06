@@ -653,10 +653,16 @@ body {
     overflow: hidden;
 }
 
+/* Deliberately flexbox, not grid. With `display: grid` the row height has to be
+   inferred from images whose height comes from a percentage width of the column
+   — a cycle Chrome resolves by giving every row ~12px, which collapses each
+   drawing into an unreadable sliver. A definite flex-basis sizes the image
+   normally, so the cards keep their real height. */
 .appreciation-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-    gap: 0.9rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-content: flex-start;
+    gap: 1rem;
     width: 100%;
     min-height: 0;
     overflow-y: auto;
@@ -667,10 +673,9 @@ body {
 
 .appreciation-item {
     display: block;
-    width: 100%;
-    /* The drawings are all phone-shaped, so the cells match their aspect and
-       nothing gets letterboxed; the odd one out just centers inside its cell. */
-    aspect-ratio: 665 / 1182;
+    /* Four across on a wide screen (three 1rem gaps to subtract). */
+    flex: 0 0 calc((100% - 3rem) / 4);
+    align-self: flex-start;
     padding: 0;
     background: rgba(255, 255, 255, 0.04);
     border: 1px solid rgba(255, 255, 255, 0.14);
@@ -690,11 +695,14 @@ body {
     transform: scale(0.98);
 }
 
+/* The image's own proportions set the card's height. Deliberately NOT
+   aspect-ratio on the card with a height:100% image — that combination gives
+   the grid row a near-zero content height, so every card overflows its row and
+   they pile on top of each other. Letting the img size naturally avoids it. */
 .appreciation-item img {
     display: block;
     width: 100%;
-    height: 100%;
-    object-fit: contain;
+    height: auto;
 }
 
 /* Small "i wanna see the new ones!!" jump button at the top of page 6 */
@@ -1395,8 +1403,9 @@ body {
     }
 
     #page8 .glass-container {
-        width: 92vw;
-        padding: 1.25rem 1rem 1rem;
+        /* Tight side padding so the single column gets as much width as possible. */
+        width: 94vw;
+        padding: 1.25rem 0.75rem 1rem;
         gap: 0.9rem;
         max-height: 100%;
     }
@@ -1405,9 +1414,15 @@ body {
         font-size: 1.5rem;
     }
 
+    /* One per row on a phone. Two columns made each drawing ~155px wide, which
+       is far too small to actually make out the linework — better to show one
+       big enough to read and let her scroll. */
     .appreciation-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 0.6rem;
+        gap: 0.9rem;
+    }
+
+    .appreciation-item {
+        flex-basis: 100%;
     }
 
     /* Give the thread modal more room and tighter chrome on small screens. */

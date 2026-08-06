@@ -638,6 +638,65 @@ body {
     box-shadow: none;
 }
 
+/* Appreciation gallery (page 8) — her drawings, in a scrollable grid.
+   Bottom clearance so the pinned "back" arrow never sits on top of the card. */
+#page8 {
+    padding-bottom: 7rem;
+}
+
+#page8 .glass-container {
+    width: min(920px, 92vw);
+    padding: 2.5rem 2.5rem 2rem;
+    gap: 1.5rem;
+    /* Only the grid scrolls — the THANK YOU title stays pinned above it. */
+    max-height: calc(100dvh - 9rem);
+    overflow: hidden;
+}
+
+.appreciation-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 0.9rem;
+    width: 100%;
+    min-height: 0;
+    overflow-y: auto;
+    /* Room for the scrollbar so it doesn't sit on the last column's border. */
+    padding-right: 0.35rem;
+    -webkit-overflow-scrolling: touch;
+}
+
+.appreciation-item {
+    display: block;
+    width: 100%;
+    /* The drawings are all phone-shaped, so the cells match their aspect and
+       nothing gets letterboxed; the odd one out just centers inside its cell. */
+    aspect-ratio: 665 / 1182;
+    padding: 0;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    border-radius: 14px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.appreciation-item:hover {
+    transform: scale(1.03);
+    border-color: rgba(244, 114, 182, 0.55);
+    box-shadow: 0 12px 30px -12px rgba(244, 114, 182, 0.5);
+}
+
+.appreciation-item:active {
+    transform: scale(0.98);
+}
+
+.appreciation-item img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
 /* Small "i wanna see the new ones!!" jump button at the top of page 6 */
 .jump-new-btn {
     flex-shrink: 0;
@@ -1325,6 +1384,30 @@ body {
        give the card room (so translation/notes/comment fit without scrolling). */
     #page6 {
         padding-bottom: calc(1.5rem + env(safe-area-inset-bottom, 0px));
+    }
+
+    /* Appreciation gallery on a phone: two columns, tighter chrome, and the
+       same top/bottom safe-area clearance the other arrow pages reserve (the
+       ID selector overrides .page, so both paddings are restated here). */
+    #page8 {
+        padding-top: calc(1rem + env(safe-area-inset-top, 0px));
+        padding-bottom: calc(6rem + env(safe-area-inset-bottom, 0px));
+    }
+
+    #page8 .glass-container {
+        width: 92vw;
+        padding: 1.25rem 1rem 1rem;
+        gap: 0.9rem;
+        max-height: 100%;
+    }
+
+    #page8 .greeting {
+        font-size: 1.5rem;
+    }
+
+    .appreciation-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 0.6rem;
     }
 
     /* Give the thread modal more room and tighter chrome on small screens. */

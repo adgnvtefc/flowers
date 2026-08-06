@@ -836,6 +836,7 @@ function goToPage(nextIndex) {
     pages[currentPage].classList.add('active');
     if (pages[currentPage].id === 'page4' && lastFlower === -1) randomizeFlower(); // first flower on arrival
     if (pages[currentPage].id === 'page6' && memoryIndex === -1) showMemory(0); // first memory on arrival
+    if (pages[currentPage].id === 'page8') renderAppreciations(); // build the gallery on arrival
 }
 
 function goToNextPage() {
@@ -906,6 +907,66 @@ gambleBtn.addEventListener('click', () => {
 // The "made lovelier by GAMBLING" detour off page 2, and its way back.
 document.getElementById('gambleEntryBtn').addEventListener('click', () => goToPage(indexOfPage('page7')));
 document.getElementById('gambleBackBtn').addEventListener('click', () => goToPage(indexOfPage('page2')));
+
+// --- Appreciation gallery (page 8, "by you") -------------------------------
+// Her drawings, laid out in a grid. Tapping one opens it full-size in the same
+// popup the memory-lane screenshots use. Add new ones by dropping the file in
+// appreciations/ and adding its path here.
+const APPRECIATIONS = [
+    'appreciations/007665DF-CDAA-4C98-AFED-C737B2565C80_1_105_c.jpeg',
+    'appreciations/150169F8-FBA3-4E7B-AEEC-0497065C43D0_1_105_c.jpeg',
+    'appreciations/1808A9CA-349C-4098-9CCA-5258080816AE_1_105_c.jpeg',
+    'appreciations/1BADCCE7-67FA-4412-84C9-66353AA4687B_1_105_c.jpeg',
+    'appreciations/23A2B9EF-F352-404B-B5CA-DA7B2C0F0A12_1_105_c.jpeg',
+    'appreciations/24AE16ED-C662-4E0B-AE3D-6559D672DA2F_1_105_c.jpeg',
+    'appreciations/2CAFD36A-D348-451A-8A68-54B0A377D4A0_1_105_c.jpeg',
+    'appreciations/31D9EEED-A355-4064-8F94-21FA235116FF_1_105_c.jpeg',
+    'appreciations/3410EC16-A0DF-4527-BFDE-C7474572C71C_1_105_c.jpeg',
+    'appreciations/477F5FED-2470-458D-B5E9-13D784FDD3ED_1_105_c.jpeg',
+    'appreciations/61C920BF-D1E8-45A6-92C0-A1B16F72D5B4_1_105_c.jpeg',
+    'appreciations/6B4CF299-ECD8-40AA-97C7-789B27C3F227_1_105_c.jpeg',
+    'appreciations/8227B1AA-FBE4-4518-9DA9-220103B93A6D_1_105_c.jpeg',
+    'appreciations/838D5C01-2869-49C7-BCB1-7FF2D915E9AE_1_105_c.jpeg',
+    'appreciations/927B4248-643B-4529-83E0-CC937426028E_1_201_a.jpeg',
+    'appreciations/967C5BE3-7863-414E-A3FF-5B397DEBD19F_1_105_c.jpeg',
+    'appreciations/9B242106-FCC7-4625-94F1-709962E79E64_1_105_c.jpeg',
+    'appreciations/9D8D6BC0-846F-45AF-8A73-A17714AE5035_1_105_c.jpeg',
+    'appreciations/A20D60E8-2BA6-437C-B68A-9F4DEECD6C4E_1_105_c.jpeg',
+    'appreciations/A6AB9867-8FF2-4FE5-ABDC-9B43C4DF48E7_1_105_c.jpeg',
+    'appreciations/BD5B640F-D007-47F5-8B0D-13A2ED55B027_1_105_c.jpeg',
+    'appreciations/E0790BFE-BA89-4E3F-BFB3-554B6A10937C_1_105_c.jpeg',
+    'appreciations/EB56FF57-25F7-4C20-A170-F2B2AF5E9B3A_1_105_c.jpeg',
+    'appreciations/EE3936CC-FD57-475A-A999-142F7458A5C0_1_105_c.jpeg',
+    'appreciations/FF8133F8-E9B1-43EF-8EBC-B322BE8FFAF5_1_105_c.jpeg'
+];
+
+const appreciationGrid = document.getElementById('appreciationGrid');
+let appreciationsRendered = false;
+
+function renderAppreciations() {
+    if (appreciationsRendered) return; // build the grid once, on first visit
+    appreciationsRendered = true;
+
+    APPRECIATIONS.forEach((src, i) => {
+        const cell = document.createElement('button');
+        cell.className = 'appreciation-item';
+        cell.type = 'button';
+
+        const img = document.createElement('img');
+        img.src = src;
+        img.alt = 'A drawing you made';
+        // Everything below the first row can wait until it scrolls into view.
+        if (i > 3) img.loading = 'lazy';
+        cell.appendChild(img);
+
+        cell.addEventListener('click', () => openAuxPopup(src));
+        appreciationGrid.appendChild(cell);
+    });
+}
+
+// The "by you" detour off page 2, and its way back.
+document.getElementById('appreciationsBtn').addEventListener('click', () => goToPage(indexOfPage('page8')));
+document.getElementById('appreciationsBackBtn').addEventListener('click', () => goToPage(indexOfPage('page2')));
 
 // --- Patch notes ("what's new") -------------------------------------------
 // Loaded from patch-notes.js. Shows the newest entry on open, once per version.

@@ -304,11 +304,16 @@ const memories = [
     { src: 'memories/day167.jpeg', header: 'Day 167', translation: 'i love you 1000 years', notes: 'this was on new years eve, why i wrote 2026 i got NO IDEA lmao' },
     { src: 'memories/day168.jpeg', header: 'Day 168', translation: 'happy 2026', notes: 'OUR FIRST NEW YEARS AS A COUPLE AHHHH I LOVE YOU. this was the night u went dancing with teh fam and i saw the sunrise that did not rise cuz of all the fog LMAO' },
     { src: 'memories/day169.jpeg', header: 'Day 169', translation: 'i love you', notes: 'flower for uuu' },
-    { src: 'memories/day170.jpeg', header: 'Day 170', translation: '1314', notes: 'in case you forgot, in chinese, its a homophone (not to be confused with homophobe) for for a lifetime. because i love you and we will be together for a lifetime.' }
+    { src: 'memories/day170.jpeg', header: 'Day 170', translation: '1314', notes: 'in case you forgot, in chinese, its a homophone (not to be confused with homophobe) for for a lifetime. because i love you and we will be together for a lifetime.' },
+    { src: 'memories/day171.jpeg', header: 'Day 171', translation: '', notes: '' },
+    { src: 'memories/day172.jpeg', header: 'Day 172', translation: '', notes: '' },
+    { src: 'memories/day173.jpeg', header: 'Day 173', translation: '', notes: '' },
+    { src: 'memories/day174.jpeg', header: 'Day 174', translation: '', notes: '' },
+    { src: 'memories/day175.jpeg', header: 'Day 175', translation: '', notes: '' }
 ];
 
 // Where "i wanna see the new ones!!" jumps to — change this to the newest batch's photo.
-const NEW_MEMORIES_SRC = 'memories/day166pt1.jpeg';
+const NEW_MEMORIES_SRC = 'memories/day171.jpeg';
 
 const memoryCard = document.getElementById('memoryCard');
 const memoryHeader = document.getElementById('memoryHeader');

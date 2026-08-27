@@ -167,6 +167,18 @@ body {
     text-shadow: 0 0 10px rgba(251, 207, 232, 0.6);
 }
 
+/* The two walking figures (page 9). Tight leading keeps each little body
+   readable as one shape rather than three floating rows. */
+#kiss-ascii {
+    font-family: 'Fira Code', monospace;
+    font-size: 1rem;
+    line-height: 1.2;
+    color: #fbcfe8;
+    text-shadow: 0 0 10px rgba(251, 207, 232, 0.6);
+    white-space: pre;
+    text-align: left;
+}
+
 /* The rotating flowers are taller, multi-line art — tighter leading keeps the
    strokes connected, and the bloom scales/fades each one in. Transforms don't
    affect layout, so the (already fixed-size) canvas never shifts. */
@@ -727,6 +739,32 @@ body {
 }
 
 .jump-new-btn:active {
+    transform: scale(0.97);
+}
+
+/* "take me there" button inside the patch-notes popup */
+.patch-go-btn {
+    align-self: center;
+    flex-shrink: 0;
+    font-family: 'Outfit', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    background: linear-gradient(135deg, rgba(244, 114, 182, 0.3), rgba(251, 113, 133, 0.24));
+    border: 1px solid rgba(244, 114, 182, 0.5);
+    border-radius: 999px;
+    padding: 0.55rem 1.4rem;
+    margin: 0.25rem 0 0.5rem;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.patch-go-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 26px -10px rgba(244, 114, 182, 0.6);
+}
+
+.patch-go-btn:active {
     transform: scale(0.97);
 }
 
@@ -1318,6 +1356,15 @@ body {
     #sun-ascii,
     #heart-ascii {
         font-size: 0.75rem;
+    }
+
+    /* 30 characters wide, so it has to shrink to fit a phone without wrapping. */
+    #kiss-ascii {
+        font-size: 0.7rem;
+    }
+
+    #page9 .ascii-art-container {
+        padding: 1.25rem 0.5rem;
     }
 
     .next-arrow {

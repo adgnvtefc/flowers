@@ -73,14 +73,98 @@ function tick(e, maxFrame, pauseOpen, pauseClosed) {
     }
 }
 
+// --- "closer, and closer" (page 9) ------------------------------------------
+// Two little figures: the left one walks over, they meet, lean in, and a heart
+// blooms above them. Every frame is padded to the SAME fixed canvas so the
+// <pre> box never changes size mid-animation (same trick as the flowers).
+const KISS_W = 30;          // canvas width in characters
+const KISS_H = 8;           // rows 0-3 hold the heart, row 4 is breathing room, 5-7 the figures
+const KISS_FEET = 7;        // bottom row — the figures are drawn upward from here
+const KISS_RIGHT_X = 20;    // the right figure stands still the whole time
+const KISS_MEET_X = 17;     // where the left figure ends up, right beside her
+
+const kissAsciiElement = document.getElementById('kiss-ascii');
+
+function kissBlank() {
+    return Array.from({ length: KISS_H }, () => ' '.repeat(KISS_W));
+}
+
+// Draw `text` into one row starting at `col`, clipping anything off-canvas so a
+// stray offset can never widen a frame and make the box jump.
+function kissPlace(rows, row, col, text) {
+    if (row < 0 || row >= KISS_H) return;
+    let line = rows[row];
+    for (let i = 0; i < text.length; i++) {
+        const c = col + i;
+        if (c < 0 || c >= KISS_W) continue;
+        line = line.slice(0, c) + text[i] + line.slice(c + 1);
+    }
+    rows[row] = line;
+}
+
+// One walking frame. `stride` alternates the legs so he looks like he's moving.
+function kissWalkFrame(x, stride) {
+    const rows = kissBlank();
+    // Inner arms are '<' and '>' so they read as open arms ('<>') when the two
+    // meet, rather than '><', which looks like they're pointing at each other.
+    kissPlace(rows, KISS_FEET - 2, x, ' O ');
+    kissPlace(rows, KISS_FEET - 1, x, ' |<');
+    kissPlace(rows, KISS_FEET, x, stride ? '/ \\' : '| |');
+    kissPlace(rows, KISS_FEET - 2, KISS_RIGHT_X, ' O ');
+    kissPlace(rows, KISS_FEET - 1, KISS_RIGHT_X, '>| ');
+    kissPlace(rows, KISS_FEET, KISS_RIGHT_X, '/ \\');
+    return rows.join('\n');
+}
+
+// The kiss itself. `stage` grows the heart: 0 none, 1 spark, 2 tiny, 3 full,
+// 4 full + sparkles (so 3 and 4 alternating reads as a pulse).
+function kissKissFrame(stage) {
+    const rows = kissBlank();
+    kissPlace(rows, KISS_FEET - 2, KISS_MEET_X, '  OO  ');
+    kissPlace(rows, KISS_FEET - 1, KISS_MEET_X, ' )<>( ');
+    kissPlace(rows, KISS_FEET, KISS_MEET_X, ' /\\/\\ ');
+    if (stage === 1) kissPlace(rows, 3, 19, '.');
+    if (stage === 2) kissPlace(rows, 3, 18, '<3');
+    if (stage >= 3) {
+        kissPlace(rows, 0, 17, ' _  _ ');
+        kissPlace(rows, 1, 17, '( \\/ )');
+        kissPlace(rows, 2, 17, ' \\  / ');
+        kissPlace(rows, 3, 17, '  \\/  ');
+    }
+    if (stage === 4) {
+        kissPlace(rows, 1, 14, '*');
+        kissPlace(rows, 1, 24, '*');
+    }
+    return rows.join('\n');
+}
+
+// The whole loop, built once: walk in, pause, lean in, heart blooms and pulses.
+const kissFrames = (() => {
+    const f = [];
+    for (let x = 0; x <= KISS_MEET_X; x++) f.push(kissWalkFrame(x, x % 2 === 0));
+    for (let i = 0; i < 3; i++) f.push(kissWalkFrame(KISS_MEET_X, true)); // a beat, face to face
+    f.push(kissKissFrame(0), kissKissFrame(0));
+    f.push(kissKissFrame(1));
+    f.push(kissKissFrame(2));
+    for (let i = 0; i < 3; i++) f.push(kissKissFrame(3), kissKissFrame(4)); // pulse
+    for (let i = 0; i < 5; i++) f.push(kissKissFrame(3));                   // hold before looping
+    return f;
+})();
+
+let kissIdx = 0;
+
 let currentPage = 0;
 
 function animate() {
-    // Page 1's flowers are driven by bloomNextFlower(); here we just animate the
-    // heart on page 2.
+    // Page 1's flowers are driven by bloomNextFlower(); here we animate the
+    // heart on page 2 and the two figures on page 9.
     if (currentPage === 1) {
         heartAsciiElement.textContent = heartFrames[heart.frame];
         tick(heart, maxHeartFrame, 8, 4);
+    }
+    if (pages[currentPage] && pages[currentPage].id === 'page9') {
+        kissAsciiElement.textContent = kissFrames[kissIdx];
+        kissIdx = (kissIdx + 1) % kissFrames.length;
     }
     setTimeout(animate, 200);
 }
@@ -842,6 +926,7 @@ function goToPage(nextIndex) {
     if (pages[currentPage].id === 'page4' && lastFlower === -1) randomizeFlower(); // first flower on arrival
     if (pages[currentPage].id === 'page6' && memoryIndex === -1) showMemory(0); // first memory on arrival
     if (pages[currentPage].id === 'page8') renderAppreciations(); // build the gallery on arrival
+    if (pages[currentPage].id === 'page9') kissIdx = 0; // always start the walk from the beginning
 }
 
 function goToNextPage() {
@@ -969,6 +1054,9 @@ function renderAppreciations() {
     });
 }
 
+// "closer, and closer" (page 9) is reached from the patch notes; this is its way home.
+document.getElementById('kissBackBtn').addEventListener('click', () => goToPage(indexOfPage('page1')));
+
 // The "by you" detour off page 2, and its way back.
 document.getElementById('appreciationsBtn').addEventListener('click', () => goToPage(indexOfPage('page8')));
 document.getElementById('appreciationsBackBtn').addEventListener('click', () => goToPage(indexOfPage('page2')));
@@ -1012,6 +1100,18 @@ document.getElementById('appreciationsBackBtn').addEventListener('click', () => 
     heading.textContent = latest.title;
     patchBody.appendChild(heading);
     addEntry(patchBody, latest);
+
+    // Doorway straight from the notes to the new page, so she doesn't have to
+    // go hunting for it. Sits under the newest entry, above "older updates".
+    const goBtn = document.createElement('button');
+    goBtn.className = 'patch-go-btn';
+    goBtn.type = 'button';
+    goBtn.textContent = 'click me hehe';
+    goBtn.addEventListener('click', () => {
+        closePatch();
+        goToPage(indexOfPage('page9'));
+    });
+    patchBody.appendChild(goBtn);
 
     // Everything older, tucked into a collapsible section.
     const older = Object.keys(versions).filter(k => k !== latestKey);

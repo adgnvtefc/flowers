@@ -393,11 +393,19 @@ const memories = [
     { src: 'memories/day172.jpeg', header: 'Day 172', translation: 'i love you', notes: 'throwback to the eight-pointed star hehe' },
     { src: 'memories/day173.jpeg', header: 'Day 173', translation: 'so soon', notes: 'this was two days before we saw each other again, i love you so much' },
     { src: 'memories/day174.jpeg', header: 'Day 174', translation: 'together', notes: 'no matter which peaks we need to climb, which rivers need to cross, always together' },
-    { src: 'memories/day175.jpeg', header: 'Day 175', translation: 'LOVE', notes: 'us in cyberpunk city ahhhhh. i love youu' }
+    { src: 'memories/day175.jpeg', header: 'Day 175', translation: 'LOVE', notes: 'us in cyberpunk city ahhhhh. i love youu' },
+    { src: 'memories/day176-179.png', header: 'Day 176 - 179', translation: 'PROVIDENCE BDAY', notes: 'We got the twip debriefs and gift exchange and wacky sleep schedule and pot pot and din din and procrastinating leaving and allat good stuff and i love you so much' },
+    { src: 'memories/day180.jpeg', header: 'Day 180', translation: 'i love you', notes: 'this was at like 8:30 pm so we mustve been REALLY tired and still kinda jet lagged hehe' },
+    { src: 'memories/day181.jpeg', header: 'Day 181', translation: 'the world may be rough and chaotic, but im here to stand by you thru it all', notes: 'stormy nights dont make the sunrise any less beautiful... as long as i get to spend another day with you' },
+    { src: 'memories/day182.jpeg', header: 'Day 182', translation: 'my beloved', notes: 'in a field of stars and flowers, the second and third most beautiful -- you being the most, of course' },
+    { src: 'memories/day183pt1.jpeg', header: 'Day 183, pt 1', translation: 'friends walk together for a lifetime, the halcyon days dont come again, a single word lasts a lifetime', notes: 'ofc these are song lyrics because none of my words can be so beautiful, but it means we are one for a lifetimeeee' },
+    { src: 'memories/day183pt2.jpeg', header: 'Day 183, pt 2', translation: 'a lifetime of memories in a glass of wine', notes: 'i love you so much' },
+    { src: 'memories/day184.jpeg', header: 'Day 184', translation: 'i love you', notes: 'jack-in-the-box but with flowers wheee. this was the night you taught me to draw perspective linesss' },
+    { src: 'memories/day185.jpeg', header: 'Day 185', translation: 'i want to see the sunsets in may with you', notes: 'and we did see them, and they were so beautiful. this one was inspired by the cliffs of moher (or smth like that) in ireland (but mostly my vision of our future togther. we got a dog and a cat yayyyy' }
 ];
 
 // Where "i wanna see the new ones!!" jumps to — change this to the newest batch's photo.
-const NEW_MEMORIES_SRC = 'memories/day171.jpeg';
+const NEW_MEMORIES_SRC = 'memories/day176-179.png';
 
 const memoryCard = document.getElementById('memoryCard');
 const memoryHeader = document.getElementById('memoryHeader');

@@ -401,11 +401,16 @@ const memories = [
     { src: 'memories/day183pt1.jpeg', header: 'Day 183, pt 1', translation: 'friends walk together for a lifetime, the halcyon days dont come again, a single word lasts a lifetime', notes: 'ofc these are song lyrics because none of my words can be so beautiful, but it means we are one for a lifetimeeee' },
     { src: 'memories/day183pt2.jpeg', header: 'Day 183, pt 2', translation: 'a lifetime of memories in a glass of wine', notes: 'i love you so much' },
     { src: 'memories/day184.jpeg', header: 'Day 184', translation: 'i love you', notes: 'jack-in-the-box but with flowers wheee. this was the night you taught me to draw perspective linesss' },
-    { src: 'memories/day185.jpeg', header: 'Day 185', translation: 'i want to see the sunsets in may with you', notes: 'and we did see them, and they were so beautiful. this one was inspired by the cliffs of moher (or smth like that) in ireland (but mostly my vision of our future togther. we got a dog and a cat yayyyy' }
+    { src: 'memories/day185.jpeg', header: 'Day 185', translation: 'i want to see the sunsets in may with you', notes: 'and we did see them, and they were so beautiful. this one was inspired by the cliffs of moher (or smth like that) in ireland (but mostly my vision of our future togther. we got a dog and a cat yayyyy' },
+    { src: 'memories/day186.jpeg', header: 'Day 186', translation: 'the world is messy, thats true, but i want to be with you', notes: 'always and forever. i think this was mlk weekend' },
+    { src: 'memories/day187.jpeg', header: 'Day 187', translation: 'a hundred days, a hundred days of love, a lifetime together', notes: 'my girlfrienddddd ONE HUNDRED DAYS CANT BELIEVE WERE AT 325 NOW AHHHH' },
+    { src: 'memories/day188.jpeg', header: 'Day 188', translation: 'i love you', notes: 'RAWRRRR' },
+    { src: 'memories/day189.jpeg', header: 'Day 189', translation: 'for my love', notes: 'was this when i started drawing heart-centered roses?' },
+    { src: 'memories/day190.jpeg', header: 'Day 190', translation: 'with you for a lifetime', notes: 'yk all those who-would-you-spend-x-time-with-in-y-place-for-z-money reels? well, id spend a lifetime with you in anywhere for no money at all. you are priceless. i love you' }
 ];
 
 // Where "i wanna see the new ones!!" jumps to — change this to the newest batch's photo.
-const NEW_MEMORIES_SRC = 'memories/day176-179.png';
+const NEW_MEMORIES_SRC = 'memories/day186.jpeg';
 
 const memoryCard = document.getElementById('memoryCard');
 const memoryHeader = document.getElementById('memoryHeader');
